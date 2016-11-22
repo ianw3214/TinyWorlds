@@ -138,7 +138,7 @@
 	Music is the least significant part of the game, and as such will be started later on into the development
 	process, and same with Sound Effects.
 
-![Development Cycle](github.com/ianw3214/TinyWorlds/tree/master/Design/DevCycle.png)
+![Development Cycle](https://github.com/ianw3214/TinyWorlds/blob/master/Design/DevCycle.png)
 
 ## Notes
   - replace < TINY WORLDS > with Game Title
