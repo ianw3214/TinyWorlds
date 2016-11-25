@@ -37,10 +37,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Design\story.md">
+    <None Include="..\Design\DesignDocument.md">
       <Filter>DesignDocs</Filter>
     </None>
-    <None Include="..\Design\DesignDocument.md">
+    <None Include="..\README.md" />
+    <None Include="..\Design\worlds.md">
       <Filter>DesignDocs</Filter>
     </None>
   </ItemGroup>

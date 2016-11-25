@@ -135,7 +135,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Design\DesignDocument.md" />
-    <None Include="..\Design\story.md" />
+    <None Include="..\Design\worlds.md" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
