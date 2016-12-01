@@ -128,10 +128,12 @@
     <ClCompile Include="engine.cc" />
     <ClCompile Include="gameState.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="playState.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.hh" />
     <ClInclude Include="gameState.hh" />
+    <ClInclude Include="playState.hh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Design\DesignDocument.md" />

@@ -1,10 +1,25 @@
 #include <iostream>
 
 #include "engine.hh"
+#include "playState.hh"
 
 int main(int argc, char* argv[]) {
 
-	std::cin.get();
+	engine * gameEngine = new engine();
+	// RUN THE GAME IF ENGINE SUCCESSFULLY INITIALIZES
+	if (gameEngine->init()) {
+		playState * test1 = new playState();
+		gameEngine->setState(test1);
+
+		while (gameEngine->isRunning()) {
+			gameEngine->handleEvents();
+			gameEngine->update();
+			gameEngine->render();
+		}
+
+		gameEngine->close();
+	}
+
 	return 0;
 
 }

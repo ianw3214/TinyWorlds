@@ -5,9 +5,28 @@ engine::engine() {
 
 }
 
+void engine::setState(gameState * state) {
+
+	this->currentState = state;
+
+}
+
+// functions calls to game states
+void engine::handleEvents() {
+	currentState->handleEvents(running);
+}
+
+void engine::update() {
+	currentState->update();
+}
+
+void engine::render() {
+	currentState->render();
+}
+
 // engine initialization
 bool engine::init() {
-	/*	initializes SDL subsystems
+	/*	initializes SDL subsystems and engine variables
 		- returns true/false based on success of initialization
 	*/
 
@@ -41,6 +60,9 @@ bool engine::init() {
 			}
 		}
 	}
+
+	// INITIALIZE GAME ENGINE VARIABLES
+	this->running = true;
 
 	return success;
 

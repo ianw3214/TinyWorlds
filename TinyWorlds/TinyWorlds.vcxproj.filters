@@ -27,12 +27,18 @@
     <ClCompile Include="gameState.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="playState.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gameState.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="playState.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
