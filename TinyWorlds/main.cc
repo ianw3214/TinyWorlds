@@ -11,6 +11,7 @@ int main(int argc, char* argv[]) {
 		playState * test1 = new playState();
 		gameEngine->setState(test1);
 
+		// game loop
 		while (gameEngine->isRunning()) {
 			gameEngine->handleEvents();
 			gameEngine->update();

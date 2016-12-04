@@ -2,12 +2,13 @@
 
 // default constructor
 engine::engine() {
-
+	
 }
 
 void engine::setState(gameState * state) {
 
 	this->currentState = state;
+	currentState->init();
 
 }
 
@@ -21,7 +22,8 @@ void engine::update() {
 }
 
 void engine::render() {
-	currentState->render();
+	currentState->render(display);
+	SDL_UpdateWindowSurface(gWindow);
 }
 
 // engine initialization
