@@ -33,6 +33,9 @@
     <ClCompile Include="sprite.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="animatedSprite.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.hh">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sprite.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="animatedSprite.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

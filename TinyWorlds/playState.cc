@@ -12,7 +12,7 @@ void playState::init() {
 	delta = 0.0;
 
 	// TESTING SPRITE
-	sprite * temp = new sprite("assets/test.png");
+	animatedSprite * temp = new animatedSprite("assets/TEST_SS.png", 40, 40, 5);
 	sprites.push_back(temp);
 
 }

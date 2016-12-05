@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animatedSprite.cc" />
     <ClCompile Include="engine.cc" />
     <ClCompile Include="gameState.cc" />
     <ClCompile Include="main.cc" />
@@ -132,6 +133,7 @@
     <ClCompile Include="sprite.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animatedSprite.hh" />
     <ClInclude Include="engine.hh" />
     <ClInclude Include="gameState.hh" />
     <ClInclude Include="playState.hh" />

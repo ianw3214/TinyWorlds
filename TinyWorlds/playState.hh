@@ -9,6 +9,7 @@
 
 #include "gameState.hh"
 #include "sprite.hh"
+#include "animatedSprite.hh"
 
 class playState : public gameState{
 

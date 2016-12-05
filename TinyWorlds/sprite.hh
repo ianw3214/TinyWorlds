@@ -16,6 +16,7 @@ public:
 	virtual int getX();
 	virtual int getY();
 	virtual void setPos(int, int);
+	virtual void setCollisionRect(int, int);
 	virtual SDL_Rect getCollisionRect();
 
 	virtual void update(float);
