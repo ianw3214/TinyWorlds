@@ -10,6 +10,7 @@
 #include "gameState.hh"
 #include "sprite.hh"
 #include "animatedSprite.hh"
+#include "player.hh"
 
 class playState : public gameState{
 
@@ -32,5 +33,6 @@ private:
 	float delta;
 
 	std::vector<sprite*> sprites;
+	player * mainPlayer;
 
 };

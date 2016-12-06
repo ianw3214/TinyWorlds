@@ -25,6 +25,7 @@ public:
 protected:
 
 	int x, y;
+	int w, h;
 
 	SDL_Rect blitRect;
 	SDL_Rect collisionRect;

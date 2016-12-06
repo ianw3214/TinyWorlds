@@ -3,6 +3,9 @@
 // DEFAULT CONSTRUCTOR
 sprite::sprite(std::string path) {
 
+	// INITIALIZE VARIABLES
+	this->x = 0, this->y = 0;
+
 	// LOAD THE IMAGE FROM THE PATH TO THE SPRITE SURFACE
 	img = IMG_Load(path.c_str());
 	if (!img) {
@@ -29,9 +32,8 @@ void sprite::update(float delta) {
 }
 
 void sprite::render(SDL_Surface * display) {
-
-	if (SDL_BlitSurface(img, nullptr, display, nullptr) < 0) {
+	SDL_Rect targetRect = { x, y, 0, 0 };
+	if (SDL_BlitSurface(img, nullptr, display, &targetRect) < 0) {
 		std::cout << "Image unable to blit, ERROR: " << IMG_GetError() << std::endl;
 	}
-
 }

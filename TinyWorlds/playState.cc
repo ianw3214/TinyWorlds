@@ -13,7 +13,17 @@ void playState::init() {
 
 	// TESTING SPRITE
 	animatedSprite * temp = new animatedSprite("assets/TEST_SS.png", 40, 40, 5);
+	temp->setPos(10, 10);
 	sprites.push_back(temp);
+
+	for (unsigned int i = 0; i < 20; i ++) {
+		animatedSprite * temp2 = new animatedSprite("assets/TEST_SS.png", 40, 40, 5);
+		temp2->setPos(100, i*40);
+		sprites.push_back(temp2);
+	}
+
+	mainPlayer = new player();
+	sprites.push_back(mainPlayer);
 
 }
 
@@ -29,6 +39,7 @@ void playState::handleEvents(bool& running) {
 		if (e.type == SDL_QUIT) {
 			running = false;
 		}
+		mainPlayer->eventHandler(e);
 	}
 
 }
