@@ -20,7 +20,7 @@ public:
 	virtual SDL_Rect getCollisionRect();
 
 	virtual void update(float);
-	virtual void render(SDL_Surface*);
+	virtual void render(SDL_Surface*, SDL_Rect);
 
 protected:
 

@@ -20,7 +20,7 @@ public:
 	animatedSprite(std::string, int, int, int);
 
 	void update(float);
-	void render(SDL_Surface*);
+	void render(SDL_Surface*, SDL_Rect);
 
 protected:
 

@@ -14,8 +14,8 @@ enum animationState {
 	RUN_LEFT = 3
 };
 
-constexpr int HORIZONTAL_SPEED = 500;
-constexpr int VERTICAL_SPEED = 400;
+constexpr int HORIZONTAL_SPEED = 300;
+constexpr int VERTICAL_SPEED = 200;
 
 class player : public sprite {
 
@@ -24,7 +24,7 @@ public:
 	player();
 
 	void update(float);
-	void render(SDL_Surface*);
+	void render(SDL_Surface*, SDL_Rect);
 
 	void eventHandler(SDL_Event e);
 	void setState(animationState);

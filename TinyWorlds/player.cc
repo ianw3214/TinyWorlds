@@ -31,19 +31,18 @@ void player::update(float delta) {
 	}
 
 	// update the player position depending on input movement
+	
 	if (LEFT) {	this->x -= HORIZONTAL_SPEED * delta; }
 	if (RIGHT) { this->x += HORIZONTAL_SPEED * delta; }
 	if (UP) { this->y -= VERTICAL_SPEED * delta; }
 	if (DOWN) { this->y += VERTICAL_SPEED * delta; }
-
-	std::cout << delta << std::endl;
-
+	
 }
 
 // SPRITE RENDER FUNCTION
-void player::render(SDL_Surface * display) {
+void player::render(SDL_Surface * display, SDL_Rect camera) {
 
-	SDL_Rect targetRect = { x, y, 0, 0 };
+	SDL_Rect targetRect = { x - camera.x, y-camera.y, 0, 0 };
 	if (SDL_BlitSurface(img, &blitRect, display, &targetRect) < 0) {
 		std::cout << "Image unable to blit, ERROR: " << IMG_GetError() << std::endl;
 	}

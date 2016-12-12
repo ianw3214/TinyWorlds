@@ -19,6 +19,20 @@ void engine::handleEvents() {
 
 void engine::update() {
 	currentState->update();
+	// Check to see if the current game state should be changed
+	if (currentState->getChangeState()) {
+		gameState * nextState = currentState->getNextState();
+		// if the game state should be changed but there is no next state,
+		// quit the game
+		if (nextState == nullptr) {
+			running = false;
+		}
+		// otherwise, change to the new current state
+		else {
+			this->currentState = nextState;
+			currentState->init();
+		}
+	}
 }
 
 void engine::render() {

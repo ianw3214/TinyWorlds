@@ -20,14 +20,17 @@ public:
 
 	void init();
 	void close();
-
+	
 	void handleEvents(bool&);
 	void update();
 	void render(SDL_Surface*);
 
-private:
+protected:
 
-	SDL_Surface * background;
+	sprite * background;
+
+	SDL_Rect camera;
+	void updateCamera();
 
 	Uint32 cTime, lTime;
 	float delta;

@@ -10,18 +10,13 @@ void playState::init() {
 	// initialize variables
 	lTime = SDL_GetTicks(), cTime = lTime;
 	delta = 0.0;
+	changeState = false;
+	nextState = nullptr;
 
-	// TESTING SPRITE
-	animatedSprite * temp = new animatedSprite("assets/TEST_SS.png", 40, 40, 5);
-	temp->setPos(10, 10);
-	sprites.push_back(temp);
+	// initialize camera
+	this->camera = {0, 0, 800, 600};
 
-	for (unsigned int i = 0; i < 20; i ++) {
-		animatedSprite * temp2 = new animatedSprite("assets/TEST_SS.png", 40, 40, 5);
-		temp2->setPos(100, i*40);
-		sprites.push_back(temp2);
-	}
-
+	// Add the player
 	mainPlayer = new player();
 	sprites.push_back(mainPlayer);
 
@@ -55,6 +50,9 @@ void playState::update() {
 		sprites.at(i)->update(delta);
 	}
 
+	// update the camera position
+	updateCamera();
+
 	// update the previous time
 	lTime = cTime;
 
@@ -67,7 +65,23 @@ void playState::render(SDL_Surface * display) {
 
 	// update all sprites in the sprite list
 	for (unsigned int i = 0; i < sprites.size(); i++) {
-		sprites.at(i)->render(display);
+		sprites.at(i)->render(display, camera);
+	}
+
+}
+
+void playState::updateCamera() {
+
+	// update the camera based on player position
+	camera.x = mainPlayer->getX() - 380;
+	std::cout << camera.x << std::endl;
+
+	// check if the camera goes out of bounds
+	if (camera.x < 0) {
+		camera.x = 0;
+	}
+	else if (camera.x > 2000 - camera.w) {
+		camera.x = 2000 - camera.w;
 	}
 
 }
