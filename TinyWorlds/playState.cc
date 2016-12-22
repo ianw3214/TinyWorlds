@@ -30,10 +30,16 @@ void playState::handleEvents(bool& running) {
 
 	SDL_Event e;
 
+	// check to see if the player quits the game
 	while (SDL_PollEvent(&e) != 0) {
 		if (e.type == SDL_QUIT) {
 			running = false;
+		}else if(e.type == SDL_KEYDOWN) {
+			if (e.key.keysym.sym == SDLK_ESCAPE) {
+				running = false;
+			}
 		}
+		// run an event handler on objects affected by player input
 		mainPlayer->eventHandler(e);
 	}
 

@@ -126,6 +126,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="animatedSprite.cc" />
+    <ClCompile Include="enemy.cc" />
     <ClCompile Include="engine.cc" />
     <ClCompile Include="gameState.cc" />
     <ClCompile Include="level1.cc" />
@@ -136,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animatedSprite.hh" />
+    <ClInclude Include="enemy.hh" />
     <ClInclude Include="engine.hh" />
     <ClInclude Include="gameState.hh" />
     <ClInclude Include="level1.hh" />
@@ -144,7 +146,7 @@
     <ClInclude Include="sprite.hh" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Design\DesignDocument.md" />
+    <None Include="..\Design\DesignDocument_OLD.md" />
     <None Include="..\Design\worlds.md" />
     <None Include="..\README.md" />
   </ItemGroup>

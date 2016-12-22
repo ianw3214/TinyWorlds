@@ -18,12 +18,12 @@ public:
 
 	playState();
 
-	void init();
-	void close();
+	virtual void init();
+	virtual void close();
 	
-	void handleEvents(bool&);
-	void update();
-	void render(SDL_Surface*);
+	virtual void handleEvents(bool&);
+	virtual void update();
+	virtual void render(SDL_Surface*);
 
 protected:
 

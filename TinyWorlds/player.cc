@@ -32,10 +32,10 @@ void player::update(float delta) {
 
 	// update the player position depending on input movement
 	
-	if (LEFT) {	this->x -= HORIZONTAL_SPEED * delta; }
-	if (RIGHT) { this->x += HORIZONTAL_SPEED * delta; }
-	if (UP) { this->y -= VERTICAL_SPEED * delta; }
-	if (DOWN) { this->y += VERTICAL_SPEED * delta; }
+	if (LEFT) {	this->x -= static_cast<int>(HORIZONTAL_SPEED * delta); }
+	if (RIGHT) { this->x += static_cast<int>(HORIZONTAL_SPEED * delta); }
+	if (UP) { this->y -= static_cast<int>(VERTICAL_SPEED * delta); }
+	if (DOWN) { this->y += static_cast<int>(VERTICAL_SPEED * delta); }
 	
 }
 

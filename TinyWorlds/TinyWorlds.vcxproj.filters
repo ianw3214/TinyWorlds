@@ -42,6 +42,9 @@
     <ClCompile Include="level1.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="enemy.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.hh">
@@ -65,13 +68,16 @@
     <ClInclude Include="level1.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="enemy.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Design\DesignDocument.md">
-      <Filter>DesignDocs</Filter>
-    </None>
     <None Include="..\README.md" />
     <None Include="..\Design\worlds.md">
+      <Filter>DesignDocs</Filter>
+    </None>
+    <None Include="..\Design\DesignDocument_OLD.md">
       <Filter>DesignDocs</Filter>
     </None>
   </ItemGroup>

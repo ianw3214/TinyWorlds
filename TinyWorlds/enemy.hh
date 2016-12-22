@@ -3,6 +3,7 @@
 #include <vector>
 
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include <SDL_image.h>
 
 #include "sprite.hh"
@@ -18,19 +19,14 @@ enum animationState {
 
 #endif
 
-constexpr int HORIZONTAL_SPEED = 300;
-constexpr int VERTICAL_SPEED = 200;
-
-class player : public sprite {
+class enemy : public sprite {
 
 public:
 
-	player();
+	enemy();
 
 	void update(float);
 	void render(SDL_Surface*, SDL_Rect);
-
-	void eventHandler(SDL_Event e);
 
 private:
 
