@@ -27,7 +27,16 @@ void level1::handleEvents(bool& quit) {
 }
 
 void level1::update() {
+
 	playState::update();
+	// make sure the player doesn't go out of bounds horizontally
+	int curr_x = mainPlayer->getX(), curr_y = mainPlayer->getY();
+	if (curr_x < MARGIN) {
+		mainPlayer->setPos(MARGIN, curr_y);
+	}
+	if (curr_x > LEVEL_WIDTH-MARGIN) {
+		mainPlayer->setPos(LEVEL_WIDTH-MARGIN, curr_y);
+	}
 	for (unsigned int i = 0; i < enemies.size(); i++) {
 		enemies.at(i)->update(delta);
 	}

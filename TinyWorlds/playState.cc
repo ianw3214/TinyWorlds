@@ -56,6 +56,15 @@ void playState::update() {
 		sprites.at(i)->update(delta);
 	}
 
+	// make sure the player does not go out of bounds vertically
+	int curr_x = mainPlayer->getX(), curr_y = mainPlayer->getY();
+	if (curr_y < GROUND_LEVEL-MARGIN) {
+		mainPlayer->setPos(curr_x, GROUND_LEVEL-MARGIN);
+	}
+	if (curr_y > WINDOW_HEIGHT-MARGIN) {
+		mainPlayer->setPos(curr_x, WINDOW_HEIGHT-MARGIN);
+	}
+
 	// update the camera position
 	updateCamera();
 
@@ -66,7 +75,7 @@ void playState::update() {
 
 void playState::render(SDL_Surface * display) {
 
-	// Fill the window black before updating the screen
+	// Fill the window black before updating the WINDOW
 	SDL_FillRect(display, nullptr, SDL_MapRGB(display->format, 0, 0, 0));
 
 	// update all sprites in the sprite list

@@ -9,6 +9,8 @@
 #include "playState.hh"
 #include "enemy.hh"
 
+constexpr int LEVEL_WIDTH = 2000;
+
 class level1 : public playState {
 
 public:

@@ -12,6 +12,11 @@
 #include "animatedSprite.hh"
 #include "player.hh"
 
+constexpr int GROUND_LEVEL = 350;
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 600;
+constexpr int MARGIN = 50;
+
 class playState : public gameState{
 
 public:
