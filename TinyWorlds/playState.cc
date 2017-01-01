@@ -89,7 +89,6 @@ void playState::updateCamera() {
 
 	// update the camera based on player position
 	camera.x = mainPlayer->getX() - 380;
-	std::cout << camera.x << std::endl;
 
 	// check if the camera goes out of bounds
 	if (camera.x < 0) {

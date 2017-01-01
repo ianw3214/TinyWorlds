@@ -8,11 +8,24 @@ player::player() : sprite("assets/player.png") {
 	this->c_frame = 0;
 	this->c_time = 0.0;
 	this->t_width = 40, this->t_height = 40;
+	this->DIRECTION = 1;
+
+	this->health = STARTING_HEALTH;
 
 }
 
 // UPDATE FUNCTION 
 void player::update(float delta) {
+
+	// update player sprite animation
+	if (!UP && !LEFT && !RIGHT && !DOWN) {
+		if (DIRECTION == 0) {
+			this->currentState = IDLE_LEFT;
+		}
+		else {
+			this->currentState = IDLE_RIGHT;
+		}
+	}
 
 	// Determine the current animation state
 	int animationKey = animationSequences[currentState];
@@ -52,21 +65,36 @@ void player::render(SDL_Surface * display, SDL_Rect camera) {
 // EVENT HANDLING FUNCTION
 void player::eventHandler(SDL_Event e) {
 
+	// update player flags and animation states based on key presses
 	if (e.type == SDL_KEYDOWN) {
 		switch (e.key.keysym.sym) {
 		case SDLK_LEFT: {
+			this->currentState = RUN_LEFT;
+			this->DIRECTION = 0;
 			this->LEFT = true;
-			currentState = RUN_LEFT;
 		} break;
 		case SDLK_RIGHT: {
+			this->currentState = RUN_RIGHT;
+			this->DIRECTION = 1;
 			this->RIGHT = true;
-			currentState = RUN_RIGHT;
 		} break;
 		case SDLK_DOWN: {
 			this->DOWN = true;
+			if (DIRECTION == 0) {
+				this->currentState = RUN_LEFT;
+			}
+			else {
+				this->currentState = RUN_RIGHT;
+			}
 		} break;
 		case SDLK_UP: {
 			this->UP = true;
+			if (DIRECTION == 0) {
+				this->currentState = RUN_LEFT;
+			}
+			else {
+				this->currentState = RUN_RIGHT;
+			}
 		} break;
 		}
 	}
@@ -74,11 +102,17 @@ void player::eventHandler(SDL_Event e) {
 		switch (e.key.keysym.sym) {
 		case SDLK_LEFT: {
 			this->LEFT = false;
-			currentState = IDLE_LEFT;
+			if (RIGHT) {
+				this->currentState = RUN_RIGHT;
+				this->DIRECTION = 1;
+			}
 		} break;
 		case SDLK_RIGHT: {
 			this->RIGHT = false;
-			currentState = IDLE_RIGHT;
+			if (LEFT) {
+				this->currentState = RUN_LEFT;
+				this->DIRECTION = 0;
+			}
 		} break;
 		case SDLK_DOWN: {
 			this->DOWN = false;
@@ -88,5 +122,27 @@ void player::eventHandler(SDL_Event e) {
 		} break;
 		}
 	}
+
+}
+
+// ATTACK FUNCTION
+void player::attack(const std::vector<enemy*>& enemies) {
+	// takes a list of enemies as input and updates them if they are hit
+
+
+}
+
+// DAMAGE TAKING FUNCTION
+bool player::takeDamage(int damage) {
+	// returns TRUE if the player is still alive, returns false if the player
+	// is dead
+	
+	this->health -= damage;
+	
+	if (this->health > 0) {
+		return true;
+	}
+
+	return false;
 
 }

@@ -6,6 +6,7 @@
 #include <SDL_image.h>
 
 #include "sprite.hh"
+#include "enemy.hh"
 
 #ifndef anim
 #define anim 1
@@ -20,6 +21,7 @@ enum animationState {
 
 constexpr int HORIZONTAL_SPEED = 300;
 constexpr int VERTICAL_SPEED = 200;
+constexpr int STARTING_HEALTH = 5;
 
 class player : public sprite {
 
@@ -32,6 +34,9 @@ public:
 
 	void eventHandler(SDL_Event e);
 
+	void attack(const std::vector<enemy*>&);
+	bool takeDamage(int);
+
 private:
 
 	animationState currentState;
@@ -41,5 +46,8 @@ private:
 	std::vector<int> animationSequences;
 	float c_time;
 	bool LEFT, RIGHT, UP, DOWN;
+	int DIRECTION;		// DIRECTION: direction the player is facing (0-left, 1-right)
+
+	int health;
 
 };

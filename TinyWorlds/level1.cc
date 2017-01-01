@@ -37,6 +37,7 @@ void level1::update() {
 	if (curr_x > LEVEL_WIDTH-MARGIN) {
 		mainPlayer->setPos(LEVEL_WIDTH-MARGIN, curr_y);
 	}
+	// update the enemies last
 	for (unsigned int i = 0; i < enemies.size(); i++) {
 		enemies.at(i)->update(delta);
 	}
