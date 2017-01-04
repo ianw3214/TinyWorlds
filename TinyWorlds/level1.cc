@@ -21,8 +21,27 @@ void level1::close() {
 	playState::close();
 }
 
-void level1::handleEvents(bool& quit) {
-	playState::handleEvents(quit);
+// OVERRIDE the playstate event handler to take on player attacks
+void level1::handleEvents(bool& running) {
+
+	SDL_Event e;
+
+	// check to see if the player quits the game
+	while (SDL_PollEvent(&e) != 0) {
+		if (e.type == SDL_QUIT) {
+			running = false;
+		}
+		else if (e.type == SDL_KEYDOWN) {
+			if (e.key.keysym.sym == SDLK_ESCAPE) {
+				running = false;
+			}
+			if (e.key.keysym.sym == SDLK_q) {
+				mainPlayer->attack(enemies);
+			}
+		}
+		// run an event handler on objects affected by player input
+		mainPlayer->eventHandler(e);
+	}
 }
 
 void level1::update() {
@@ -39,8 +58,12 @@ void level1::update() {
 	// spawn enemies
 	handleEnemySpawn(delta);
 	// update the enemies last
-	for (unsigned int i = 0; i < enemies.size(); i++) {
+	for (int i = enemies.size() - 1; i >= 0; i--) {
 		enemies.at(i)->update(delta, mainPlayer->getX(), mainPlayer->getY());
+		// delete the enemy if it should be deleted
+		if (enemies.at(i)->GET_DELETE()) {
+			delete enemies.at(i);
+		}
 	}
 }
 

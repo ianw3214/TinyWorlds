@@ -5,6 +5,7 @@ sprite::sprite(std::string path) {
 
 	// INITIALIZE VARIABLES
 	this->x = 0, this->y = 0;
+	this->DELETE = false;
 
 	// LOAD THE IMAGE FROM THE PATH TO THE SPRITE SURFACE
 	img = IMG_Load(path.c_str());
@@ -17,6 +18,10 @@ sprite::sprite(std::string path) {
 // DESTRUCTOR
 sprite::~sprite() {
 
+}
+
+bool sprite::GET_DELETE() {
+	return DELETE;
 }
 
 // GETTER/SETTER METHODS

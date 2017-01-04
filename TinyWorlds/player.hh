@@ -7,6 +7,7 @@
 
 #include "sprite.hh"
 #include "enemy.hh"
+#include "animatedSprite.hh"
 
 enum animationState {
 	IDLE_RIGHT = 0,
@@ -46,5 +47,7 @@ private:
 	int DIRECTION;		// DIRECTION: direction the player is facing (0-left, 1-right)
 
 	int health;
+
+	std::vector<sprite*> animations;
 
 };

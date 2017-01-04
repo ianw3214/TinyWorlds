@@ -50,6 +50,15 @@ void player::update(float delta) {
 	if (UP) { this->y -= static_cast<int>(VERTICAL_SPEED * delta); }
 	if (DOWN) { this->y += static_cast<int>(VERTICAL_SPEED * delta); }
 	
+	// update each additional animation of the player
+	for (int i = animations.size() - 1; i >= 0; i--) {
+		animations.at(i)->update(delta);
+		// delete the animation if it is over
+		if (animations.at(i)->GET_DELETE()) {
+			animations.erase(animations.begin()+i);
+		}
+	}
+
 }
 
 // SPRITE RENDER FUNCTION
@@ -58,6 +67,11 @@ void player::render(SDL_Surface * display, SDL_Rect camera) {
 	SDL_Rect targetRect = { x - camera.x, y-camera.y, 0, 0 };
 	if (SDL_BlitSurface(img, &blitRect, display, &targetRect) < 0) {
 		std::cout << "Image unable to blit, ERROR: " << IMG_GetError() << std::endl;
+	}
+
+	// render each additional animation of the player
+	for (int i = animations.size() - 1; i >= 0; i--) {
+		animations.at(i)->render(display, camera);
 	}
 
 }
@@ -131,6 +145,29 @@ void player::attack(const std::vector<enemy*>& enemies) {
 
 	// first make a rectangle based on the players direction that will act
 	// as the collision hitbox
+	SDL_Rect collision_box = {};
+	if (DIRECTION == 1) {	// RIGHT
+		collision_box = { x, y, 60, 40 };
+		// create a visual sprite to represent the attack
+		animatedSprite * attack = new animatedSprite("assets/attack1.png", 60, 40, 8, true);
+		attack->setPos(x, y);
+		animations.push_back(attack);
+	}
+	else {					// LEFT
+		collision_box = { x-20, y, 60, 40 };
+		// create a visual sprite to represent the attack
+		animatedSprite * attack = new animatedSprite("assets/attack1.png", 60, 40, 8, true);
+		attack->setPos(x-20, y);
+		animations.push_back(attack);
+	}
+	
+	// update each enemy
+	for (unsigned int i = 0; i < enemies.size(); i++) {
+		std::cout << "FLAG" << std::endl;
+	}
+	
+
+	std::cout << "ATTACK" << std::endl;
 
 }
 

@@ -1,13 +1,15 @@
 #include "animatedSprite.hh"
 
 // DEFAULT CONSTRUCTOR
-animatedSprite::animatedSprite(std::string path, int t_width, int t_height, int frames) : sprite(path) {
+animatedSprite::animatedSprite(std::string path, int t_width, int t_height, int frames, bool playOnce = false) : sprite(path) {
 
 	// initialize variables
 	this->c_frame = 0;
 	this->num_frames = frames;
 	this->c_time = 0.0;
 	this->t_width = t_width, this->t_height = t_height;
+	this->DELETE = false;
+	this->PLAY_ONCE = playOnce;
 
 	// initialize blitting rect to the first frame
 	this->blitRect = {0, 0, t_width, t_height};
@@ -23,6 +25,7 @@ void animatedSprite::update(float delta) {
 		// update the current sprite frame
 		c_frame++;
 		if (c_frame >= num_frames) {
+			if (PLAY_ONCE) DELETE = true;
 			c_frame = 0;
 		}
 		c_time = 0.0;

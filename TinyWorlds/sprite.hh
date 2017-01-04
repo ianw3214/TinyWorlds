@@ -22,6 +22,8 @@ public:
 	virtual void update(float);
 	virtual void render(SDL_Surface*, SDL_Rect);
 
+	bool GET_DELETE();
+
 protected:
 
 	int x, y;
@@ -31,5 +33,7 @@ protected:
 	SDL_Rect collisionRect;
 
 	SDL_Surface * img;
+
+	bool DELETE;
 
 };

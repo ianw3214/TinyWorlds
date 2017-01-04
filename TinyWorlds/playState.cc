@@ -49,11 +49,15 @@ void playState::update() {
 
 	// update the delta time between updates
 	cTime = SDL_GetTicks();
-	delta = (cTime - lTime)/1000.0;
+	delta = static_cast<float>((cTime - lTime)/1000.0);
 
 	// update all sprites in the sprite list
-	for (unsigned int i = 0; i < sprites.size(); i++) {
+	for (int i = sprites.size() - 1; i >= 0; i--) {
 		sprites.at(i)->update(delta);
+		// see if any sprites need to be removed
+		if (sprites.at(i)->GET_DELETE()) {
+			delete sprites.at(i);
+		}
 	}
 
 	// make sure the player does not go out of bounds vertically
