@@ -9,12 +9,11 @@ void level1::init() {
 	// call superclass constructor
 	playState::init();
 
-	// set initial player position
-	mainPlayer->setPos(400, 300);
+	// initialize variables
+	this->enemySpawnCounter = 0.0;
 
-	// TEST ENEMY
-	enemy * test = new enemy();
-	enemies.push_back(test);
+	// set initial player position
+	this->mainPlayer->setPos(400, 300);
 
 }
 
@@ -37,9 +36,11 @@ void level1::update() {
 	if (curr_x > LEVEL_WIDTH-MARGIN) {
 		mainPlayer->setPos(LEVEL_WIDTH-MARGIN, curr_y);
 	}
+	// spawn enemies
+	handleEnemySpawn(delta);
 	// update the enemies last
 	for (unsigned int i = 0; i < enemies.size(); i++) {
-		enemies.at(i)->update(delta);
+		enemies.at(i)->update(delta, mainPlayer->getX(), mainPlayer->getY());
 	}
 }
 
@@ -48,4 +49,20 @@ void level1::render(SDL_Surface* display) {
 	for (unsigned int i = 0; i < enemies.size(); i++) {
 		enemies.at(i)->render(display, camera);
 	}
+}
+
+void level1::handleEnemySpawn(float delta){
+
+	// update the spawn timer
+	enemySpawnCounter += delta;
+	
+	if (enemySpawnCounter >= SPAWN_TIME) {
+		// spawn a new enemy if the timer is reached
+		enemy * test = new enemy();
+		test->setPos(rand() % 1800 + 100, rand() % 250 + 300);
+		enemies.push_back(test);
+		// reset the spawn counter
+		enemySpawnCounter = 0.0;
+	}
+
 }

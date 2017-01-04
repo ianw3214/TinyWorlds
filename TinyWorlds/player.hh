@@ -8,8 +8,6 @@
 #include "sprite.hh"
 #include "enemy.hh"
 
-#ifndef anim
-#define anim 1
 enum animationState {
 	IDLE_RIGHT = 0,
 	IDLE_LEFT = 1,
@@ -17,7 +15,6 @@ enum animationState {
 	RUN_LEFT = 3
 };
 
-#endif
 
 constexpr int HORIZONTAL_SPEED = 300;
 constexpr int VERTICAL_SPEED = 200;

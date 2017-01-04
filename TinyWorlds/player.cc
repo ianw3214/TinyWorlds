@@ -129,6 +129,8 @@ void player::eventHandler(SDL_Event e) {
 void player::attack(const std::vector<enemy*>& enemies) {
 	// takes a list of enemies as input and updates them if they are hit
 
+	// first make a rectangle based on the players direction that will act
+	// as the collision hitbox
 
 }
 

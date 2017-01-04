@@ -1,9 +1,14 @@
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 #include "engine.hh"
 #include "level1.hh"
 
 int main(int argc, char* argv[]) {
+
+	// initialize seed for random number
+	srand(time(NULL));
 
 	engine * gameEngine = new engine();
 	// RUN THE GAME IF ENGINE SUCCESSFULLY INITIALIZES
