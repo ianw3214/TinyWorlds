@@ -161,9 +161,11 @@ void player::attack(const std::vector<enemy*>& enemies) {
 		animations.push_back(attack);
 	}
 	
-	// update each enemy
+	// check collision with each enemy
 	for (unsigned int i = 0; i < enemies.size(); i++) {
-		std::cout << "FLAG" << std::endl;
+		if(SDL_HasIntersection(&enemies.at(i)->getCollisionRect(), &collision_box)){
+			enemies.at(i)->takeDamage(1);
+		}
 	}
 	
 

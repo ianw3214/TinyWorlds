@@ -62,7 +62,7 @@ void level1::update() {
 		enemies.at(i)->update(delta, mainPlayer->getX(), mainPlayer->getY());
 		// delete the enemy if it should be deleted
 		if (enemies.at(i)->GET_DELETE()) {
-			delete enemies.at(i);
+			enemies.erase(enemies.begin()+i);
 		}
 	}
 }

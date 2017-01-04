@@ -21,6 +21,9 @@ void enemy::update(float delta, int p_x, int p_y) {
 	// move the enemy 
 	move(p_x, p_y, delta);
 
+	// update enemy collision rect
+	setCollisionRect(40, 40);
+
 	// Determine the current animation state
 	int animationKey = animationSequences[currentState];
 
@@ -30,6 +33,9 @@ void enemy::update(float delta, int p_x, int p_y) {
 		// update the current sprite frame
 		c_frame++;
 		if (c_frame >= animationKey) {
+			if (currentState == DEATH) {
+				DELETE = true;
+			}
 			c_frame = 0;
 		}
 		c_time = 0.0;
@@ -60,7 +66,10 @@ bool enemy::takeDamage(int damage) {
 	if (this->health > 0) {
 		return true;
 	}
-
+	
+	// reset animation frames and return false if dead
+	c_frame = 0;
+	dead = true;
 	return false;
 
 }
@@ -68,40 +77,43 @@ bool enemy::takeDamage(int damage) {
 // MOVE FUNCTION OF ENEMY DEPENDING ON PLAYER POSITION
 void enemy::move(int p_x, int p_y, float delta) {
 	// takes player position as input and updates enemy position accordingly
-
-	if (p_x > x) {
-		currentState = E_RUN_RIGHT;
-		if (x + ENEMY_HORIZONTAL_SPEED*delta > p_x) {
-			x = p_x;
+	if (!dead) {
+		if (p_x > x) {
+			currentState = E_RUN_RIGHT;
+			if (x + ENEMY_HORIZONTAL_SPEED*delta > p_x) {
+				x = p_x;
+			}
+			else {
+				x += ENEMY_HORIZONTAL_SPEED*delta;
+			}
 		}
-		else {
-			x += ENEMY_HORIZONTAL_SPEED*delta;
+		if (p_x < x) {
+			currentState = E_RUN_LEFT;
+			if (x - ENEMY_HORIZONTAL_SPEED*delta < p_x) {
+				x = p_x;
+			}
+			else {
+				x -= ENEMY_HORIZONTAL_SPEED*delta;
+			}
+		}
+		if (p_y > y) {
+			if (y + ENEMY_VERTICAL_SPEED*delta > p_y) {
+				y = p_y;
+			}
+			else {
+				y += ENEMY_VERTICAL_SPEED*delta;
+			}
+		}
+		if (p_y < y) {
+			if (y - ENEMY_VERTICAL_SPEED*delta < p_y) {
+				y = p_y;
+			}
+			else {
+				y -= ENEMY_VERTICAL_SPEED*delta;
+			}
 		}
 	}
-	if (p_x < x) {
-		currentState = E_RUN_LEFT;
-		if (x - ENEMY_HORIZONTAL_SPEED*delta < p_x) {
-			x = p_x;
-		}
-		else {
-			x -= ENEMY_HORIZONTAL_SPEED*delta;
-		}
+	else {
+		currentState = DEATH;
 	}
-	if (p_y > y) {
-		if (y + ENEMY_VERTICAL_SPEED*delta > p_y) {
-			y = p_y;
-		}
-		else {
-			y += ENEMY_VERTICAL_SPEED*delta;
-		}
-	}
-	if (p_y < y) {
-		if (y - ENEMY_VERTICAL_SPEED*delta < p_y) {
-			y = p_y;
-		}
-		else {
-			y -= ENEMY_VERTICAL_SPEED*delta;
-		}
-	}
-
 }

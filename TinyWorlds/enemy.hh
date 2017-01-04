@@ -43,5 +43,6 @@ private:
 	bool LEFT, RIGHT, UP, DOWN;
 
 	int health;
+	bool dead;
 
 };
