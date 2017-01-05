@@ -15,6 +15,9 @@ player::player() : sprite("assets/player.png") {
 
 }
 
+// getter functions
+int player::getHealth() { return this->health; }
+
 // UPDATE FUNCTION 
 void player::update(float delta) {
 
@@ -63,6 +66,9 @@ void player::update(float delta) {
 			animations.erase(animations.begin()+i);
 		}
 	}
+
+	// update player collision rectangle
+	this->collisionRect = {x, y, 40, 40};
 
 }
 

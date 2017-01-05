@@ -11,7 +11,8 @@
 enum enemyAnimationState {
 	E_RUN_RIGHT,
 	E_RUN_LEFT,
-	DEATH
+	DEATH,
+	EXPLODE
 };
 
 
@@ -28,9 +29,12 @@ public:
 	void render(SDL_Surface*, SDL_Rect);
 
 	int getHealth();
+	bool getDead();
+
 	bool takeDamage(int);
 
 	void move(int, int, float);
+	void explode();
 
 private:
 

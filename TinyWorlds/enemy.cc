@@ -3,7 +3,7 @@
 enemy::enemy() : sprite("assets/enemy.png") {
 
 	// INITIALIZE VARIABLES
-	this->animationSequences = { 3, 3, 3 };
+	this->animationSequences = { 3, 3, 3, 3 };
 	this->currentState = E_RUN_RIGHT;
 	this->c_frame = 0;
 	this->c_time = 0.0;
@@ -14,6 +14,7 @@ enemy::enemy() : sprite("assets/enemy.png") {
 }
 
 int enemy::getHealth() { return this->health; }
+bool enemy::getDead() { return this->dead; }
 
 // UPDATE FUNCTION 
 void enemy::update(float delta, int p_x, int p_y) {
@@ -33,7 +34,7 @@ void enemy::update(float delta, int p_x, int p_y) {
 		// update the current sprite frame
 		c_frame++;
 		if (c_frame >= animationKey) {
-			if (currentState == DEATH) {
+			if (currentState == DEATH || currentState == EXPLODE) {
 				DELETE = true;
 			}
 			c_frame = 0;
@@ -113,7 +114,16 @@ void enemy::move(int p_x, int p_y, float delta) {
 			}
 		}
 	}
-	else {
+	else if(currentState != EXPLODE){
 		currentState = DEATH;
 	}
+}
+
+// explodes when enemy hits the player
+void enemy::explode() {
+
+	currentState = EXPLODE;
+	c_frame = 0;
+	dead = true;
+
 }

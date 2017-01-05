@@ -31,6 +31,8 @@ public:
 	void update(float);
 	void render(SDL_Surface*, SDL_Rect);
 
+	int getHealth();
+
 	void eventHandler(SDL_Event e);
 
 	void attack(const std::vector<enemy*>&);
