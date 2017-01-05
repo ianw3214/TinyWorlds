@@ -10,6 +10,7 @@ player::player() : sprite("assets/player.png") {
 	this->t_width = 40, this->t_height = 40;
 	this->DIRECTION = 1;
 	this->attacking = false;
+	this->attack2_CD = 0.0;
 
 	this->health = STARTING_HEALTH;
 
@@ -69,6 +70,14 @@ void player::update(float delta) {
 
 	// update player collision rectangle
 	this->collisionRect = {x, y, 40, 40};
+
+	// update player cooldown times
+	if (attack2_CD != 0.0) {
+		attack2_CD -= delta;
+		if (attack2_CD < 0.0) {
+			attack2_CD = 0.0;
+		}
+	}
 
 }
 
@@ -187,6 +196,43 @@ void player::attack(const std::vector<enemy*>& enemies) {
 	currentState = ATTACK1;
 	attacking = true;
 
+}
+
+// ATTACK FUNCTION
+void player::attack2(const std::vector<enemy*>& enemies) {
+	// takes a list of enemies as input and updates them if they are hit
+
+	// FIRST CHECK THE COOLDOWN 
+	if (attack2_CD == 0.0) {
+
+		// reset the cooldown
+		attack2_CD = 1.0;
+
+		// first make a rectangle based on the players direction that will act
+		// as the collision hitbox
+		SDL_Rect collision_box = { x - 120, y - 60, 280, 160 };
+		// create a visual sprite to represent the attack
+		animatedSprite * attack = new animatedSprite("assets/attack2.png", 280, 160, 8, true);
+		attack->setPos(x - 120, y - 60);
+		animations.push_back(attack);
+
+		// check collision with each enemy
+		for (unsigned int i = 0; i < enemies.size(); i++) {
+			if (SDL_HasIntersection(&enemies.at(i)->getCollisionRect(), &collision_box)) {
+				enemies.at(i)->takeDamage(1);
+			}
+		}
+
+
+		std::cout << "ATTACK" << std::endl;
+
+		// update player animation and stop movement
+		c_frame = 0;
+		currentState = ATTACK1;
+		attacking = true;
+
+	}
+	
 }
 
 // DAMAGE TAKING FUNCTION

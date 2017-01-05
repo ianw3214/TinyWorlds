@@ -36,6 +36,7 @@ public:
 	void eventHandler(SDL_Event e);
 
 	void attack(const std::vector<enemy*>&);
+	void attack2(const std::vector<enemy*>&);
 	bool takeDamage(int);
 
 private:
@@ -49,6 +50,7 @@ private:
 	bool LEFT, RIGHT, UP, DOWN;
 	int DIRECTION;		// DIRECTION: direction the player is facing (0-left, 1-right)
 	bool attacking;
+	float attack2_CD;
 
 	int health;
 

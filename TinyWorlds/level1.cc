@@ -38,6 +38,9 @@ void level1::handleEvents(bool& running) {
 			if (e.key.keysym.sym == SDLK_q) {
 				mainPlayer->attack(enemies);
 			}
+			if (e.key.keysym.sym == SDLK_w){
+				mainPlayer->attack2(enemies);
+			}
 		}
 		// run an event handler on objects affected by player input
 		mainPlayer->eventHandler(e);
