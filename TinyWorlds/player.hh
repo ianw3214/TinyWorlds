@@ -7,6 +7,7 @@
 
 #include "sprite.hh"
 #include "enemy.hh"
+#include "bigEnemy.hh"
 #include "animatedSprite.hh"
 
 enum animationState {
@@ -35,8 +36,8 @@ public:
 
 	void eventHandler(SDL_Event e);
 
-	void attack(const std::vector<enemy*>&);
-	void attack2(const std::vector<enemy*>&);
+	void attack(const std::vector<enemy*>&, const std::vector<bigEnemy*>&);
+	void attack2(const std::vector<enemy*>&, const std::vector<bigEnemy*>&);
 	bool takeDamage(int);
 
 private:

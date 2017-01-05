@@ -126,6 +126,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="animatedSprite.cc" />
+    <ClCompile Include="bigEnemy.cc" />
     <ClCompile Include="enemy.cc" />
     <ClCompile Include="engine.cc" />
     <ClCompile Include="gameState.cc" />
@@ -138,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animatedSprite.hh" />
+    <ClInclude Include="bigEnemy.hh" />
     <ClInclude Include="enemy.hh" />
     <ClInclude Include="engine.hh" />
     <ClInclude Include="gameState.hh" />

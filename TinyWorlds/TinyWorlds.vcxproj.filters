@@ -48,6 +48,9 @@
     <ClCompile Include="stillSprite.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bigEnemy.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.hh">
@@ -75,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stillSprite.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bigEnemy.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

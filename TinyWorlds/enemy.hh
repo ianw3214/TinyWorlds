@@ -44,7 +44,6 @@ private:
 	int t_width, t_height, c_frame;
 	std::vector<int> animationSequences;
 	float c_time;
-	bool LEFT, RIGHT, UP, DOWN;
 
 	int health;
 	bool dead;

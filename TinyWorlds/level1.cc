@@ -21,6 +21,13 @@ void level1::init() {
 	// initialize variables
 	this->enemySpawnCounter = 0.0;
 
+	// Spawn in the big enemies
+	for (int i = 0; i < 5; i++) {
+		bigEnemy* temp = new bigEnemy();
+		temp->setPos(rand() % 1800 + 100, 400 + rand() % 80 - 40);
+		bigEnemies.push_back(temp);
+	}
+
 	// set initial player position
 	this->mainPlayer->setPos(400, 300);
 
@@ -45,10 +52,10 @@ void level1::handleEvents(bool& running) {
 				running = false;
 			}
 			if (e.key.keysym.sym == SDLK_q) {
-				mainPlayer->attack(enemies);
+				mainPlayer->attack(enemies, bigEnemies);
 			}
 			if (e.key.keysym.sym == SDLK_w){
-				mainPlayer->attack2(enemies);
+				mainPlayer->attack2(enemies, bigEnemies);
 			}
 		}
 		// run an event handler on objects affected by player input
@@ -88,6 +95,25 @@ void level1::update() {
 			enemies.erase(enemies.begin()+i);
 		}
 	}
+	
+	// update big enemies
+	for (int i = bigEnemies.size() - 1; i >= 0; i--) {
+		bigEnemies.at(i)->update(delta);
+		// check for collisions between enemies and player
+		if (SDL_HasIntersection(&bigEnemies.at(i)->getCollisionRect(), &mainPlayer->getCollisionRect()) && !bigEnemies.at(i)->getDead()) {
+			if (!mainPlayer->takeDamage(1)) {
+				// THIS MEANS THE PLAYER DIED
+				std::cout << "DIED" << std::endl;
+			}
+			else {
+				std::cout << mainPlayer->getHealth() << std::endl;
+			}
+		}
+		// delete the enemy if it should be deleted
+		if (bigEnemies.at(i)->GET_DELETE()) {
+			bigEnemies.erase(bigEnemies.begin() + i);
+		}
+	}
 
 	// update background parallaxing with respect to player position
 	if (camera.x != 0 && camera.x != 2000-camera.w) {
@@ -103,6 +129,9 @@ void level1::render(SDL_Surface* display) {
 	playState::render(display);
 	for (unsigned int i = 0; i < enemies.size(); i++) {
 		enemies.at(i)->render(display, camera);
+	}
+	for (unsigned int i = 0; i < bigEnemies.size(); i++) {
+		bigEnemies.at(i)->render(display, camera);
 	}
 	fg->render(display, camera);
 }

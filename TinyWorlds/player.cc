@@ -160,7 +160,7 @@ void player::eventHandler(SDL_Event e) {
 }
 
 // ATTACK FUNCTION
-void player::attack(const std::vector<enemy*>& enemies) {
+void player::attack(const std::vector<enemy*>& enemies, const std::vector<bigEnemy*>& bigEnemies) {
 	// takes a list of enemies as input and updates them if they are hit
 
 	// first make a rectangle based on the players direction that will act
@@ -187,6 +187,12 @@ void player::attack(const std::vector<enemy*>& enemies) {
 			enemies.at(i)->takeDamage(1);
 		}
 	}
+	// check collision with each big enemy
+	for (unsigned int i = 0; i < bigEnemies.size(); i++) {
+		if (SDL_HasIntersection(&bigEnemies.at(i)->getCollisionRect(), &collision_box)) {
+			bigEnemies.at(i)->takeDamage(1);
+		}
+	}
 	
 
 	std::cout << "ATTACK" << std::endl;
@@ -199,7 +205,7 @@ void player::attack(const std::vector<enemy*>& enemies) {
 }
 
 // ATTACK FUNCTION
-void player::attack2(const std::vector<enemy*>& enemies) {
+void player::attack2(const std::vector<enemy*>& enemies, const std::vector<bigEnemy*>& bigEnemies) {
 	// takes a list of enemies as input and updates them if they are hit
 
 	// FIRST CHECK THE COOLDOWN 
@@ -220,6 +226,12 @@ void player::attack2(const std::vector<enemy*>& enemies) {
 		for (unsigned int i = 0; i < enemies.size(); i++) {
 			if (SDL_HasIntersection(&enemies.at(i)->getCollisionRect(), &collision_box)) {
 				enemies.at(i)->takeDamage(1);
+			}
+		}
+		// check collision with each big enemy
+		for (unsigned int i = 0; i < bigEnemies.size(); i++) {
+			if (SDL_HasIntersection(&bigEnemies.at(i)->getCollisionRect(), &collision_box)) {
+				bigEnemies.at(i)->takeDamage(1);
 			}
 		}
 

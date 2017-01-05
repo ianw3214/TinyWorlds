@@ -9,6 +9,7 @@
 
 #include "playState.hh"
 #include "enemy.hh"
+#include "bigEnemy.hh"
 #include "stillSprite.hh"
 
 constexpr int LEVEL_WIDTH = 2000;
@@ -31,6 +32,7 @@ private:
 
 	float enemySpawnCounter;
 	std::vector<enemy*> enemies;
+	std::vector<bigEnemy*> bigEnemies;
 
 	// 3 different sprites to handle parallaxing/backgrounds
 	stillSprite * bg, * mg, * fg;
