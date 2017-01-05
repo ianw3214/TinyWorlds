@@ -134,6 +134,7 @@
     <ClCompile Include="player.cc" />
     <ClCompile Include="playState.cc" />
     <ClCompile Include="sprite.cc" />
+    <ClCompile Include="stillSprite.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animatedSprite.hh" />
@@ -144,6 +145,7 @@
     <ClInclude Include="player.hh" />
     <ClInclude Include="playState.hh" />
     <ClInclude Include="sprite.hh" />
+    <ClInclude Include="stillSprite.hh" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Design\DesignDocument_OLD.md" />

@@ -2,9 +2,18 @@
 
 void level1::init() {
 
-	// Add the background first so it always gets rendered first
-	background = new sprite("assets/BG1.png");
+	// Add the sky to always get rendered first
+	background = new stillSprite("assets/background1_sky.png");
 	sprites.push_back(background);
+
+	// initialize sprites for background parallaxing
+	bg = new stillSprite("assets/background1_back.png");
+	sprites.push_back(bg);
+	mg = new stillSprite("assets/background1_mid.png");
+	sprites.push_back(mg);
+
+	// don't push foreground into sprites vector so we can control it's rendering to be last
+	fg = new stillSprite("assets/background1_front.png");
 
 	// call superclass constructor
 	playState::init();
@@ -80,6 +89,14 @@ void level1::update() {
 		}
 	}
 
+	// update background parallaxing with respect to player position
+	if (camera.x != 0 && camera.x != 2000-camera.w) {
+		// only update background if background is moving (camera is moving)
+		bg->setPos(-mainPlayer->getX() / 3, 0);
+		mg->setPos(-mainPlayer->getX(), 0);
+		fg->setPos(-mainPlayer->getX() * 2, 0);
+	}
+
 }
 
 void level1::render(SDL_Surface* display) {
@@ -87,6 +104,7 @@ void level1::render(SDL_Surface* display) {
 	for (unsigned int i = 0; i < enemies.size(); i++) {
 		enemies.at(i)->render(display, camera);
 	}
+	fg->render(display, camera);
 }
 
 void level1::handleEnemySpawn(float delta){

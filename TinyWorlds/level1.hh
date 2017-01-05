@@ -9,6 +9,7 @@
 
 #include "playState.hh"
 #include "enemy.hh"
+#include "stillSprite.hh"
 
 constexpr int LEVEL_WIDTH = 2000;
 constexpr float SPAWN_TIME = 0.5;
@@ -30,5 +31,8 @@ private:
 
 	float enemySpawnCounter;
 	std::vector<enemy*> enemies;
+
+	// 3 different sprites to handle parallaxing/backgrounds
+	stillSprite * bg, * mg, * fg;
 
 };
