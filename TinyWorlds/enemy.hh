@@ -16,7 +16,7 @@ enum enemyAnimationState {
 
 
 constexpr int ENEMY_VERTICAL_SPEED = 100;
-constexpr int ENEMY_HORIZONTAL_SPEED = 150;
+constexpr int ENEMY_HORIZONTAL_SPEED = 100;
 
 class enemy : public sprite {
 

@@ -36,7 +36,7 @@ void animatedSprite::update(float delta) {
 }
 
 void animatedSprite::render(SDL_Surface * display, SDL_Rect camera) {
-
+	
 	SDL_Rect targetRect = {x - camera.x, y - camera.y, 0, 0};
 	if (SDL_BlitSurface(img, &blitRect, display, &targetRect) < 0) {
 		std::cout << "Image unable to blit, ERROR: " << IMG_GetError() << std::endl;

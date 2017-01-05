@@ -13,7 +13,8 @@ enum animationState {
 	IDLE_RIGHT = 0,
 	IDLE_LEFT = 1,
 	RUN_RIGHT = 2,
-	RUN_LEFT = 3
+	RUN_LEFT = 3,
+	ATTACK1 = 4
 };
 
 
@@ -45,9 +46,13 @@ private:
 	float c_time;
 	bool LEFT, RIGHT, UP, DOWN;
 	int DIRECTION;		// DIRECTION: direction the player is facing (0-left, 1-right)
+	bool attacking;
 
 	int health;
 
 	std::vector<sprite*> animations;
+
+	// private methods
+	void resetAnimation();
 
 };

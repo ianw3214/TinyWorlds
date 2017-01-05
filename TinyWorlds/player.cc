@@ -3,12 +3,13 @@
 player::player() : sprite("assets/player.png") {
 
 	// INITIALIZE VARIABLES
-	this->animationSequences = { 3, 3, 3, 3 };
+	this->animationSequences = { 3, 3, 3, 3, 5 };
 	this->currentState = IDLE_RIGHT;
 	this->c_frame = 0;
 	this->c_time = 0.0;
 	this->t_width = 40, this->t_height = 40;
 	this->DIRECTION = 1;
+	this->attacking = false;
 
 	this->health = STARTING_HEALTH;
 
@@ -18,7 +19,7 @@ player::player() : sprite("assets/player.png") {
 void player::update(float delta) {
 
 	// update player sprite animation
-	if (!UP && !LEFT && !RIGHT && !DOWN) {
+	if (!UP && !LEFT && !RIGHT && !DOWN && !attacking) {
 		if (DIRECTION == 0) {
 			this->currentState = IDLE_LEFT;
 		}
@@ -32,10 +33,14 @@ void player::update(float delta) {
 
 	c_time += delta;
 	// update at a rate of 30 fps
-	if (c_time > 0.33) {
+	if (c_time > 0.066) {
 		// update the current sprite frame
 		c_frame++;
 		if (c_frame >= animationKey) {
+			if (currentState == ATTACK1) {
+				attacking = false;
+				resetAnimation();
+			}
 			c_frame = 0;
 		}
 		c_time = 0.0;
@@ -45,10 +50,10 @@ void player::update(float delta) {
 
 	// update the player position depending on input movement
 	
-	if (LEFT) {	this->x -= static_cast<int>(HORIZONTAL_SPEED * delta); }
-	if (RIGHT) { this->x += static_cast<int>(HORIZONTAL_SPEED * delta); }
-	if (UP) { this->y -= static_cast<int>(VERTICAL_SPEED * delta); }
-	if (DOWN) { this->y += static_cast<int>(VERTICAL_SPEED * delta); }
+	if (LEFT && !attacking) {	this->x -= static_cast<int>(HORIZONTAL_SPEED * delta); }
+	if (RIGHT && !attacking) { this->x += static_cast<int>(HORIZONTAL_SPEED * delta); }
+	if (UP && !attacking) { this->y -= static_cast<int>(VERTICAL_SPEED * delta); }
+	if (DOWN && !attacking) { this->y += static_cast<int>(VERTICAL_SPEED * delta); }
 	
 	// update each additional animation of the player
 	for (int i = animations.size() - 1; i >= 0; i--) {
@@ -83,30 +88,30 @@ void player::eventHandler(SDL_Event e) {
 	if (e.type == SDL_KEYDOWN) {
 		switch (e.key.keysym.sym) {
 		case SDLK_LEFT: {
-			this->currentState = RUN_LEFT;
+			if(!attacking) this->currentState = RUN_LEFT;
 			this->DIRECTION = 0;
 			this->LEFT = true;
 		} break;
 		case SDLK_RIGHT: {
-			this->currentState = RUN_RIGHT;
+			if (!attacking) this->currentState = RUN_RIGHT;
 			this->DIRECTION = 1;
 			this->RIGHT = true;
 		} break;
 		case SDLK_DOWN: {
 			this->DOWN = true;
-			if (DIRECTION == 0) {
+			if (DIRECTION == 0 && !attacking) {
 				this->currentState = RUN_LEFT;
 			}
-			else {
+			else if(!attacking){
 				this->currentState = RUN_RIGHT;
 			}
 		} break;
 		case SDLK_UP: {
 			this->UP = true;
-			if (DIRECTION == 0) {
+			if (DIRECTION == 0 && !attacking) {
 				this->currentState = RUN_LEFT;
 			}
-			else {
+			else if(!attacking){
 				this->currentState = RUN_RIGHT;
 			}
 		} break;
@@ -116,14 +121,14 @@ void player::eventHandler(SDL_Event e) {
 		switch (e.key.keysym.sym) {
 		case SDLK_LEFT: {
 			this->LEFT = false;
-			if (RIGHT) {
+			if (RIGHT && !attacking) {
 				this->currentState = RUN_RIGHT;
 				this->DIRECTION = 1;
 			}
 		} break;
 		case SDLK_RIGHT: {
 			this->RIGHT = false;
-			if (LEFT) {
+			if (LEFT && !attacking) {
 				this->currentState = RUN_LEFT;
 				this->DIRECTION = 0;
 			}
@@ -147,17 +152,17 @@ void player::attack(const std::vector<enemy*>& enemies) {
 	// as the collision hitbox
 	SDL_Rect collision_box = {};
 	if (DIRECTION == 1) {	// RIGHT
-		collision_box = { x, y, 60, 40 };
+		collision_box = { x, y-40, 120, 80 };
 		// create a visual sprite to represent the attack
-		animatedSprite * attack = new animatedSprite("assets/attack1.png", 60, 40, 8, true);
-		attack->setPos(x, y);
+		animatedSprite * attack = new animatedSprite("assets/attack1.png", 120, 80, 8, true);
+		attack->setPos(x, y-40);
 		animations.push_back(attack);
 	}
 	else {					// LEFT
-		collision_box = { x-20, y, 60, 40 };
+		collision_box = { x-80, y-40, 120, 80 };
 		// create a visual sprite to represent the attack
-		animatedSprite * attack = new animatedSprite("assets/attack1.png", 60, 40, 8, true);
-		attack->setPos(x-20, y);
+		animatedSprite * attack = new animatedSprite("assets/attack1.png", 120, 80, 8, true);
+		attack->setPos(x-80, y-40);
 		animations.push_back(attack);
 	}
 	
@@ -170,6 +175,11 @@ void player::attack(const std::vector<enemy*>& enemies) {
 	
 
 	std::cout << "ATTACK" << std::endl;
+
+	// update player animation and stop movement
+	c_frame = 0;
+	currentState = ATTACK1;
+	attacking = true;
 
 }
 
@@ -186,4 +196,27 @@ bool player::takeDamage(int damage) {
 
 	return false;
 
+}
+
+
+// animation reset function
+void player::resetAnimation() {
+	// first check if the player is moving
+	if (UP || DOWN || LEFT || RIGHT) {
+		if (DIRECTION == 0) {
+			currentState = RUN_LEFT;
+		}
+		else {
+			currentState = RUN_RIGHT;
+		}
+	}
+	// otherwise play the idle animation
+	else {
+		if (DIRECTION == 0) {
+			currentState = IDLE_LEFT;
+		}
+		else {
+			currentState = IDLE_RIGHT;
+		}
+	}
 }
