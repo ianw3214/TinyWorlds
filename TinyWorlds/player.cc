@@ -3,7 +3,7 @@
 player::player() : sprite("assets/player.png") {
 
 	// INITIALIZE VARIABLES
-	this->animationSequences = { 3, 3, 3, 3, 5 };
+	this->animationSequences = { 3, 3, 3, 3, 5, 5, 3 };
 	this->currentState = IDLE_RIGHT;
 	this->c_frame = 0;
 	this->c_time = 0.0;
@@ -23,7 +23,7 @@ int player::getHealth() { return this->health; }
 void player::update(float delta) {
 
 	// update player sprite animation
-	if (!UP && !LEFT && !RIGHT && !DOWN && !attacking) {
+	if (!UP && !LEFT && !RIGHT && !DOWN && !attacking && currentState != FALLING && currentState != IDLE_DEATH) {
 		if (DIRECTION == 0) {
 			this->currentState = IDLE_LEFT;
 		}
@@ -31,7 +31,7 @@ void player::update(float delta) {
 			this->currentState = IDLE_RIGHT;
 		}
 	}
-
+	
 	// Determine the current animation state
 	int animationKey = animationSequences[currentState];
 
@@ -44,6 +44,9 @@ void player::update(float delta) {
 			if (currentState == ATTACK1) {
 				attacking = false;
 				resetAnimation();
+			}
+			if (currentState == FALLING) {
+				currentState = IDLE_DEATH;
 			}
 			c_frame = 0;
 		}
@@ -262,6 +265,13 @@ bool player::takeDamage(int damage) {
 
 }
 
+// PLAYER KILL FUNCTION
+void player::die() {
+
+	LEFT = false, RIGHT = false, UP = false, DOWN = false;
+	currentState = FALLING;
+
+}
 
 // animation reset function
 void player::resetAnimation() {

@@ -35,8 +35,12 @@ private:
 	float enemySpawnCounter;
 	std::vector<enemy*> enemies;
 	std::vector<bigEnemy*> bigEnemies;
+	std::vector<sprite*> topLevel;
 
 	// 3 different sprites to handle parallaxing/backgrounds
 	stillSprite * bg, * mg, * fg;
+
+	bool GAME_OVER;
+	void game_over();
 
 };

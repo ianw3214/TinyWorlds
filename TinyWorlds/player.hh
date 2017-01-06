@@ -15,13 +15,15 @@ enum animationState {
 	IDLE_LEFT = 1,
 	RUN_RIGHT = 2,
 	RUN_LEFT = 3,
-	ATTACK1 = 4
+	ATTACK1 = 4,
+	FALLING = 5,
+	IDLE_DEATH = 6
 };
 
 
 constexpr int HORIZONTAL_SPEED = 300;
 constexpr int VERTICAL_SPEED = 200;
-constexpr int STARTING_HEALTH = 999;
+constexpr int STARTING_HEALTH = 1;
 
 class player : public sprite {
 
@@ -39,6 +41,7 @@ public:
 	void attack(const std::vector<enemy*>&, const std::vector<bigEnemy*>&);
 	void attack2(const std::vector<enemy*>&, const std::vector<bigEnemy*>&);
 	bool takeDamage(int);
+	void die();
 
 private:
 
