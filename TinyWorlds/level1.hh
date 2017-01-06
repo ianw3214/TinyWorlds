@@ -41,6 +41,8 @@ private:
 	stillSprite * bg, * mg, * fg;
 
 	bool GAME_OVER;
-	void game_over();
+	void game_over(int);
+	
+	float winTimer;
 
 };

@@ -22,6 +22,7 @@ void level1::init() {
 	// initialize variables
 	this->enemySpawnCounter = 0.0;
 	this->GAME_OVER = false;
+	this->winTimer = 0.0;
 
 	// Spawn in the big enemies
 	for (int i = 0; i < 5; i++) {
@@ -62,7 +63,7 @@ void level1::handleEvents(bool& running) {
 			if (e.key.keysym.sym == SDLK_SPACE && GAME_OVER) {
 				// move on to the death menu
 				changeState = true;
-				nextState = new gameOver();
+				
 			}
 		}
 		// run an event handler on objects affected by player input
@@ -75,6 +76,12 @@ void level1::update() {
 	// update everything only if the game is still running
 	if (!GAME_OVER) {
 		
+		// update the timer to keep see if the player has won
+		winTimer += delta;
+		if (winTimer >= 1.0) {
+			game_over(2);
+		}
+
 		playState::update();
 		// make sure the player doesn't go out of bounds horizontally
 		int curr_x = mainPlayer->getX(), curr_y = mainPlayer->getY();
@@ -94,7 +101,7 @@ void level1::update() {
 				enemies.at(i)->explode();
 				if (!mainPlayer->takeDamage(1)) {
 					// if the function returns false, then the player has died
-					game_over();
+					game_over(0);
 				}
 			}
 			// delete the enemy if it should be deleted
@@ -124,7 +131,7 @@ void level1::update() {
 			// if the enemy has bloomed
 			else if (bigEnemies.at(i)->getBloom()) {
 				// THEN THE GAME IS OVER
-				game_over();
+				game_over(1);
 			}
 		}
 
@@ -150,6 +157,13 @@ void level1::render(SDL_Surface* display) {
 	for (unsigned int i = 0; i < bigEnemies.size(); i++) {
 		bigEnemies.at(i)->render(display, camera);
 	}
+	// render hearts to represent player health
+	for (unsigned int i = 0; i < mainPlayer->getHealth(); i++) {
+		stillSprite * temp = new stillSprite("assets/heart.png");
+		temp->setPos( 20 + i * 40, 20 );
+		temp->render(display, camera);
+	}
+	// render the top level content
 	for (unsigned int i = 0; i < topLevel.size(); i++) {
 		topLevel.at(i)->render(display, camera);
 	}
@@ -180,15 +194,49 @@ void level1::handleEnemySpawn(float delta){
 }
 
 // function that handles dealing with game over
-void level1::game_over() {
-	
-	// THIS MEANS THE PLAYER DIED
-	std::cout << "DIED" << std::endl;
-	mainPlayer->die();
-	GAME_OVER = true;
+void level1::game_over(int key) {
+	// Takes different keys to represent different game over states
+	// 0 -> GAME LOST BY PLAYER DEATH
+	// 1 -> GAME LOST BY ENEMY BLOOM
+	// 2 -> GAME WON
 
-	// Update the screen
-	stillSprite * temp = new stillSprite("assets/text1.png");
-	topLevel.push_back(temp);
+	if (key == 0) {
+
+		// THIS MEANS THE PLAYER DIED
+		std::cout << "DIED" << std::endl;
+		mainPlayer->die();
+		GAME_OVER = true;
+
+		// Update the screen
+		stillSprite * temp = new stillSprite("assets/text1.png");
+		topLevel.push_back(temp);
+
+		// update the next game state to game over
+		nextState = new gameOver();
+
+	}
+	else if (key == 1) {
+
+		mainPlayer->stopMovement();
+		GAME_OVER = true;
+
+		// Update the screen
+		stillSprite * temp = new stillSprite("assets/text1.png");
+		topLevel.push_back(temp);
+
+		// update the next game state to game over
+		nextState = new gameOver();
+
+	}
+	else if (key == 2) {
+
+		// The player won the game
+		mainPlayer->stopMovement();
+		GAME_OVER = true;
+
+		// update the screen
+		std::cout << "WIN CONDITION";
+
+	}
 
 }

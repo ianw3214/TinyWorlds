@@ -37,7 +37,7 @@ void player::update(float delta) {
 
 	c_time += delta;
 	// update at a rate of 30 fps
-	if (c_time > 0.033) {
+	if (c_time > 0.033	) {
 		// update the current sprite frame
 		c_frame++;
 		if (c_frame >= animationKey) {
@@ -162,6 +162,13 @@ void player::eventHandler(SDL_Event e) {
 
 }
 
+// STOPS ALL PLAYER MOVEMENT
+void player::stopMovement() {
+
+	UP = false, DOWN = false, LEFT = false, RIGHT = false;
+
+}
+
 // ATTACK FUNCTION
 void player::attack(const std::vector<enemy*>& enemies, const std::vector<bigEnemy*>& bigEnemies) {
 	// takes a list of enemies as input and updates them if they are hit
@@ -268,7 +275,7 @@ bool player::takeDamage(int damage) {
 // PLAYER KILL FUNCTION
 void player::die() {
 
-	LEFT = false, RIGHT = false, UP = false, DOWN = false;
+	stopMovement();
 	currentState = FALLING;
 
 }

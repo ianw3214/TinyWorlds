@@ -23,7 +23,7 @@ enum animationState {
 
 constexpr int HORIZONTAL_SPEED = 300;
 constexpr int VERTICAL_SPEED = 200;
-constexpr int STARTING_HEALTH = 1;
+constexpr int STARTING_HEALTH = 5;
 
 class player : public sprite {
 
@@ -37,6 +37,7 @@ public:
 	int getHealth();
 
 	void eventHandler(SDL_Event e);
+	void stopMovement();
 
 	void attack(const std::vector<enemy*>&, const std::vector<bigEnemy*>&);
 	void attack2(const std::vector<enemy*>&, const std::vector<bigEnemy*>&);
