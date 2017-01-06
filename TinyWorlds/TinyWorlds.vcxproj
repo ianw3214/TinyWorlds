@@ -127,8 +127,10 @@
   <ItemGroup>
     <ClCompile Include="animatedSprite.cc" />
     <ClCompile Include="bigEnemy.cc" />
+    <ClCompile Include="bigEnemyFinal.cc" />
     <ClCompile Include="enemy.cc" />
     <ClCompile Include="engine.cc" />
+    <ClCompile Include="gameOver.cc" />
     <ClCompile Include="gameState.cc" />
     <ClCompile Include="level1.cc" />
     <ClCompile Include="main.cc" />
@@ -140,8 +142,10 @@
   <ItemGroup>
     <ClInclude Include="animatedSprite.hh" />
     <ClInclude Include="bigEnemy.hh" />
+    <ClInclude Include="bigEnemyFinal.hh" />
     <ClInclude Include="enemy.hh" />
     <ClInclude Include="engine.hh" />
+    <ClInclude Include="gameOver.hh" />
     <ClInclude Include="gameState.hh" />
     <ClInclude Include="level1.hh" />
     <ClInclude Include="player.hh" />

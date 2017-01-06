@@ -85,9 +85,9 @@ void level1::update() {
 			if (!mainPlayer->takeDamage(1)) {
 				// THIS MEANS THE PLAYER DIED
 				std::cout << "DIED" << std::endl;
-			}
-			else {
-				std::cout << mainPlayer->getHealth() << std::endl;
+				// move on to the death menu
+				changeState = true;
+				nextState = new gameOver();
 			}
 		}
 		// delete the enemy if it should be deleted
@@ -99,19 +99,29 @@ void level1::update() {
 	// update big enemies
 	for (int i = bigEnemies.size() - 1; i >= 0; i--) {
 		bigEnemies.at(i)->update(delta);
-		// check for collisions between enemies and player
-		if (SDL_HasIntersection(&bigEnemies.at(i)->getCollisionRect(), &mainPlayer->getCollisionRect()) && !bigEnemies.at(i)->getDead()) {
-			if (!mainPlayer->takeDamage(1)) {
-				// THIS MEANS THE PLAYER DIED
-				std::cout << "DIED" << std::endl;
-			}
-			else {
-				std::cout << mainPlayer->getHealth() << std::endl;
-			}
-		}
 		// delete the enemy if it should be deleted
 		if (bigEnemies.at(i)->GET_DELETE()) {
 			bigEnemies.erase(bigEnemies.begin() + i);
+		}
+		// check if the enemy should be upgraded
+		else if (bigEnemies.at(i)->getUpgrade()) {
+			// add an upgrade sprite
+			animatedSprite * temp_FX = new animatedSprite("assets/enemy2_upgrade.png", 60, 60, 8, true);
+			temp_FX->setPos(bigEnemies.at(i)->getX(), bigEnemies.at(i)->getY());
+			sprites.push_back(temp_FX);
+			// make the upgrade
+			bigEnemyFinal *temp = new bigEnemyFinal(bigEnemies.at(i)->getHealth(), bigEnemies.at(i)->getX()-10, bigEnemies.at(i)->getY()-10);
+			bigEnemies.erase(bigEnemies.begin() + i);
+			bigEnemies.push_back(temp);
+		}
+		// if the enemy has bloomed
+		else if (bigEnemies.at(i)->getBloom()) {
+			// THEN THE GAME IS OVER
+			// THIS MEANS THE PLAYER DIED
+			std::cout << "RIP" << std::endl;
+			// move on to the death menu
+			changeState = true;
+			nextState = new gameOver();
 		}
 	}
 

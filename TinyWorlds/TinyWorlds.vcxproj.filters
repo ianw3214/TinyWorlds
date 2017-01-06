@@ -51,6 +51,12 @@
     <ClCompile Include="bigEnemy.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="gameOver.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bigEnemyFinal.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.hh">
@@ -81,6 +87,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bigEnemy.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameOver.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bigEnemyFinal.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

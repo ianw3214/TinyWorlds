@@ -37,7 +37,7 @@ void player::update(float delta) {
 
 	c_time += delta;
 	// update at a rate of 30 fps
-	if (c_time > 0.066) {
+	if (c_time > 0.033) {
 		// update the current sprite frame
 		c_frame++;
 		if (c_frame >= animationKey) {

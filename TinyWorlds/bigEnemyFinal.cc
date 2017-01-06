@@ -1,36 +1,40 @@
-#include "bigEnemy.hh"
+#include "bigEnemyFinal.hh"
 
-bigEnemy::bigEnemy() : sprite("assets/enemy2.png") {
+// default constructor
+bigEnemyFinal::bigEnemyFinal(int lastHealth, int inp_x, int inp_y) : bigEnemy() {
 
 	// INITIALIZE VARIABLES
-	this->animationSequences = { 4, 4, 4, 4, 4, 4 };
-	this->currentState = STATE1;
+	animationSequences = { 4, 4, 4 };
+	this->currentState = FINAL_STATE1;
 	this->c_frame = 0;
 	this->c_time = 0.0;
-	this->t_width = 60, this->t_height = 60;
+	this->t_width = 80, this->t_height = 80;
 	this->upgradeTime = 0.0;
 	this->moveTime = 0;
 	this->cDirection = rand() % 7;
 
-	this->health = 5;
+	this->health = lastHealth;		// five the enemy extra health when it upgrades
+	this->setPos(inp_x, inp_y);
 	this->upgrade = false;
-	this->bloom = false;
+	this->bloomCounter = 0;
+
+	// reset the image source
+	std::string path = "assets/enemy2_final.png";
+	img = IMG_Load(path.c_str());
+	if (!img) {
+		std::cout << "Failed to load image: " << path << ", SDL_image ERROR : " << IMG_GetError() << std::endl;
+	}
 
 }
 
-int bigEnemy::getHealth() { return this->health; }
-bool bigEnemy::getDead() { return this->dead; }
-bool bigEnemy::getUpgrade() { return this->upgrade; }
-bool bigEnemy::getBloom() { return this->bloom; }
-
-// UPDATE FUNCTION 
-void bigEnemy::update(float delta) {
+// OVERRIDE UPDATE FUNCTION 
+void bigEnemyFinal::update(float delta) {
 
 	// update big enemy position if it is not dead
 	if (!dead) {
 		// move the big enemy randomly
 		if (moveTime > 3.0) {	// if the big enemy has moved long enough in 1 direction
-			// Change directions
+								// Change directions
 			cDirection = rand() % 7;
 			moveTime = 0;
 		}
@@ -81,23 +85,25 @@ void bigEnemy::update(float delta) {
 		}
 	}
 	else {
-		currentState = BIG_DEATH;
+		currentState = FINAL_DEATH;
 	}
 
 	// update Big Enemy collision rect
 	setCollisionRect(60, 60);
 
 	// update big enemy state
-	if (upgradeTime >= 1.0) {
-		if (currentState == STATE1) {
-			currentState = STATE2;
+	if (upgradeTime >= 5.0) {
+		if (currentState = FINAL_STATE1) {
+			currentState = FINAL_STATE2;
 		}
-		else if (currentState == STATE2) {
-			currentState = STATE3;
-		}
-		else if(currentState != BIG_DEATH){
-			currentState = STATE3;
-			upgrade = true;
+		else { 
+			currentState = FINAL_STATE2;
+			if (bloomCounter > 1) {
+				bloom = true;
+			}
+			else {
+				bloomCounter++;
+			}
 		}
 		upgradeTime = 0.0;
 	}
@@ -114,8 +120,9 @@ void bigEnemy::update(float delta) {
 		// update the current sprite frame
 		c_frame++;
 		if (c_frame >= animationKey) {
-			if (currentState == BIG_DEATH) {
+			if (currentState == FINAL_DEATH) {
 				DELETE = true;
+				std::cout << "FLAG" << std::endl;
 			}
 			c_frame = 0;
 		}
@@ -126,48 +133,10 @@ void bigEnemy::update(float delta) {
 
 }
 
-// SPRITE RENDER FUNCTION
-void bigEnemy::render(SDL_Surface * display, SDL_Rect camera) {
-	
-	SDL_Rect targetRect = { x - camera.x, y - camera.y, 0, 0 };
-	if (SDL_BlitSurface(img, &blitRect, display, &targetRect) < 0) {
-		std::cout << "Image unable to blit, ERROR: " << IMG_GetError() << std::endl;
-	}
+// OVERRIDE KILL FUNCTION
+void bigEnemyFinal::kill() {
 
-}
-
-
-// DAMAGE TAKING FUNCTION
-bool bigEnemy::takeDamage(int damage) {
-	// returns TRUE if the bigEnemy is still alive, returns false if the bigEnemy
-	// is dead
-
-	this->health -= damage;
-
-	if (this->health > 0) {
-		return true;
-	}
-
-	// reset animation frames and return false if dead
-	c_frame = 0;
-	dead = true;
-	return false;
-
-}
-
-// kill function for the big enemy, called when enemy is dead
-void bigEnemy::kill() {
-
-	currentState = BIG_DEATH;
-	c_frame = 0;
-	dead = true;
-
-}
-
-// kill function for the big enemy, called when enemy is upgraded
-void bigEnemy::upgradeKill() {
-
-	currentState = UPGRADE;
+	currentState = FINAL_DEATH;
 	c_frame = 0;
 	dead = true;
 

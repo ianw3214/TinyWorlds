@@ -56,7 +56,7 @@ void playState::update() {
 		sprites.at(i)->update(delta);
 		// see if any sprites need to be removed
 		if (sprites.at(i)->GET_DELETE()) {
-			delete sprites.at(i);
+			sprites.erase(sprites.begin() + i);
 		}
 	}
 

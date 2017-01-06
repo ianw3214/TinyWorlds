@@ -12,7 +12,8 @@ enum bigEnemyAnimationState {
 	STATE1,
 	STATE2,
 	STATE3,
-	BIG_DEATH
+	BIG_DEATH,
+	UPGRADE
 };
 
 
@@ -25,16 +26,19 @@ public:
 
 	bigEnemy();
 
-	void update(float);
-	void render(SDL_Surface*, SDL_Rect);
+	virtual void update(float);
+	virtual void render(SDL_Surface*, SDL_Rect);
 
-	int getHealth();
-	bool getDead();
+	virtual int getHealth();
+	virtual bool getDead();
+	virtual bool getUpgrade();
+	virtual bool getBloom();
 
-	bool takeDamage(int);
-	void kill();
+	virtual bool takeDamage(int);
+	virtual void kill();
+	virtual void upgradeKill();
 
-private:
+protected:
 
 	bigEnemyAnimationState currentState;
 	std::vector<int> animSequences;
@@ -48,6 +52,6 @@ private:
 	float moveTime;
 
 	int health;
-	bool dead;
+	bool dead, upgrade, bloom;
 
 };
