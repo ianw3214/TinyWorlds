@@ -4,6 +4,7 @@
 
 #include "engine.hh"
 #include "level1.hh"
+#include "mainMenu.hh"
 
 int main(int argc, char* argv[]) {
 
@@ -13,7 +14,8 @@ int main(int argc, char* argv[]) {
 	engine * gameEngine = new engine();
 	// RUN THE GAME IF ENGINE SUCCESSFULLY INITIALIZES
 	if (gameEngine->init()) {
-		level1 * test1 = new level1();
+		// level1 * test1 = new level1();
+		mainMenu * test1 = new mainMenu();
 		gameEngine->setState(test1);
 
 		// game loop

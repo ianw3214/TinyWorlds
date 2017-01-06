@@ -57,6 +57,9 @@
     <ClCompile Include="bigEnemyFinal.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mainMenu.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.hh">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bigEnemyFinal.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mainMenu.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

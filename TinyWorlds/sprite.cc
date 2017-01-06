@@ -15,6 +15,22 @@ sprite::sprite(std::string path) {
 
 }
 
+// CONSTRUCTOR WITH COORDS
+sprite::sprite(std::string path, int x, int y) {
+
+	// INITIALIZE VARIABLES
+	this->x = x, this->y = y;
+	this->DELETE = false;
+
+	// LOAD THE IMAGE FROM THE PATH TO THE SPRITE SURFACE
+	img = IMG_Load(path.c_str());
+	if (!img) {
+		std::cout << "Failed to load image: " << path << ", SDL_image ERROR : " << IMG_GetError() << std::endl;
+	}
+
+}
+
+
 // DESTRUCTOR
 sprite::~sprite() {
 

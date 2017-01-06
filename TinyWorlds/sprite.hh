@@ -11,6 +11,7 @@ class sprite {
 public:
 
 	sprite(std::string);
+	sprite(std::string, int, int);
 	virtual ~sprite();
 
 	virtual int getX();

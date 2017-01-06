@@ -134,6 +134,7 @@
     <ClCompile Include="gameState.cc" />
     <ClCompile Include="level1.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="mainMenu.cc" />
     <ClCompile Include="player.cc" />
     <ClCompile Include="playState.cc" />
     <ClCompile Include="sprite.cc" />
@@ -148,6 +149,7 @@
     <ClInclude Include="gameOver.hh" />
     <ClInclude Include="gameState.hh" />
     <ClInclude Include="level1.hh" />
+    <ClInclude Include="mainMenu.hh" />
     <ClInclude Include="player.hh" />
     <ClInclude Include="playState.hh" />
     <ClInclude Include="sprite.hh" />
