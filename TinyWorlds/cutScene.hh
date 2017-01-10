@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
+#include <string>
 
 #include <SDL.h>
 #include <SDL_mixer.h>
@@ -9,23 +9,16 @@
 
 #include "gameState.hh"
 #include "sprite.hh"
-#include "animatedSprite.hh"
-#include "player.hh"
 
-constexpr int GROUND_LEVEL = 350;
-constexpr int WINDOW_WIDTH = 1280;
-constexpr int WINDOW_HEIGHT = 720;
-constexpr int MARGIN = 50;
-
-class playState : public gameState{
+class cutScene : public gameState {
 
 public:
 
-	playState();
+	cutScene(std::string, gameState*);
 
 	virtual void init();
 	virtual void close();
-	
+
 	virtual void handleEvents(bool&);
 	virtual void update();
 	virtual void render(SDL_Surface*);
@@ -33,14 +26,9 @@ public:
 protected:
 
 	sprite * background;
-
-	SDL_Rect camera;
-	void updateCamera();
+	sprite * text;
 
 	Uint32 cTime, lTime;
 	float delta;
-
-	std::vector<sprite*> sprites;
-	player * mainPlayer;
 
 };

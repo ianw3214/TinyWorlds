@@ -13,13 +13,11 @@
 #include "bigEnemyFinal.hh"
 #include "stillSprite.hh"
 #include "gameOver.hh"
-#include "level2.hh"
-#include "cutScene.hh"
 
-constexpr int LEVEL_WIDTH = 2000;
-constexpr float SPAWN_TIME = 1.0;
+constexpr int LEVEL_WIDTH_2 = 2000;
+constexpr float SPAWN_TIME_2 = 1.0;
 
-class level1 : public playState {
+class level2 : public playState {
 
 public:
 
@@ -40,11 +38,11 @@ private:
 	std::vector<sprite*> topLevel;
 
 	// 3 different sprites to handle parallaxing/backgrounds
-	stillSprite * bg, * mg, * fg;
+	stillSprite * bg, *mg, *fg;
 
 	bool GAME_OVER;
 	void game_over(int);
-	
+
 	float winTimer;
 
 };

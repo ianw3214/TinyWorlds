@@ -60,6 +60,12 @@
     <ClCompile Include="mainMenu.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cutScene.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="level2.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.hh">
@@ -99,6 +105,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mainMenu.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cutScene.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="level2.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

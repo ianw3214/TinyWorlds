@@ -23,7 +23,7 @@ enum animationState {
 
 constexpr int HORIZONTAL_SPEED = 300;
 constexpr int VERTICAL_SPEED = 200;
-constexpr int STARTING_HEALTH = 5;
+constexpr int STARTING_HEALTH = 1;
 
 class player : public sprite {
 

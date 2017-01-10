@@ -1,29 +1,23 @@
-#include "gameOver.hh"
+#include "cutScene.hh"
 
-// empty default constructor
-gameOver::gameOver() {
-	
-}
+cutScene::cutScene(std::string path, gameState * nextState) {
 
-// initialization function
-void gameOver::init() {
+	background = new sprite(path);
+	text = new sprite("assets/cutscenes/text.png");
 
-	// initialize variables
-	lTime = SDL_GetTicks(), cTime = lTime;
-	delta = 0.0;
-	changeState = false;
-	nextState = nullptr;
-
-	// add the background
-	background = new sprite("assets/gameover.png");
+	this->nextState = nextState;
 
 }
 
-void gameOver::close() {
+void cutScene::init() {
 
 }
 
-void gameOver::handleEvents(bool& running) {
+void cutScene::close() {
+
+}
+
+void cutScene::handleEvents(bool& running) {
 
 	SDL_Event e;
 
@@ -36,12 +30,15 @@ void gameOver::handleEvents(bool& running) {
 			if (e.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
 			}
+			if (e.key.keysym.sym == SDLK_SPACE) {
+				changeState = true;
+			}
 		}
 	}
 
 }
 
-void gameOver::update() {
+void cutScene::update() {
 
 	// update the delta time between updates
 	cTime = SDL_GetTicks();
@@ -52,11 +49,12 @@ void gameOver::update() {
 
 }
 
-void gameOver::render(SDL_Surface * display) {
+void cutScene::render(SDL_Surface * display) {
 
 	// Fill the window black before updating the WINDOW
 	SDL_FillRect(display, nullptr, SDL_MapRGB(display->format, 0, 0, 0));
 
 	background->render(display, {});
+	text->render(display, {});
 
 }

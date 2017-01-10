@@ -7,14 +7,14 @@ mainMenu::mainMenu() {
 void mainMenu::init() {
 
 	// initialize sprites
-	this->background = new sprite("assets/menu_bg.png");
+	this->background = new sprite("assets/main_menu/menu_bg.png");
 
 	// initialize menu items
 
 	// PLAY GAME BUTTON
 	menuItem * item1 = new menuItem();
-	item1->img = new sprite("assets/menu1.png", 350, 200);
-	item1->img_selected = new sprite("assets/menu1_select.png", 350, 200);
+	item1->img = new sprite("assets/main_menu/menu1.png", 800, 400);
+	item1->img_selected = new sprite("assets/main_menu/menu1_select.png", 800, 400);
 	item1->key = 0;
 	item1->prevItem = nullptr;
 	this->selected = item1;
@@ -22,16 +22,16 @@ void mainMenu::init() {
 
 	// OPTIONS BUTTON
 	menuItem * item2 = new menuItem();
-	item2->img = new sprite("assets/menu2.png", 350, 260);
-	item2->img_selected = new sprite("assets/menu2_select.png", 350, 260);
+	item2->img = new sprite("assets/main_menu/menu2.png", 800, 460);
+	item2->img_selected = new sprite("assets/main_menu/menu2_select.png", 800, 460);
 	item2->key = 1;
 	item2->prevItem = item1;
 	item1->nextItem = item2;
 
 	// QUIT BUTTON
 	menuItem * item3 = new menuItem();
-	item3->img = new sprite("assets/menu3.png", 350, 320);
-	item3->img_selected = new sprite("assets/menu3_select.png", 350, 320);
+	item3->img = new sprite("assets/main_menu/menu3.png", 800, 520);
+	item3->img_selected = new sprite("assets/main_menu/menu3_select.png", 800, 520);
 	item3->key = 2;
 	item3->prevItem = item2;
 	item2->nextItem = item3;

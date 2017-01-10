@@ -1,6 +1,6 @@
 #include "player.hh"
 
-player::player() : sprite("assets/player.png") {
+player::player() : sprite("assets/player/player.png") {
 
 	// INITIALIZE VARIABLES
 	this->animationSequences = { 3, 3, 3, 3, 5, 5, 3 };
@@ -179,14 +179,14 @@ void player::attack(const std::vector<enemy*>& enemies, const std::vector<bigEne
 	if (DIRECTION == 1) {	// RIGHT
 		collision_box = { x, y-40, 120, 80 };
 		// create a visual sprite to represent the attack
-		animatedSprite * attack = new animatedSprite("assets/attack1.png", 120, 80, 8, true);
+		animatedSprite * attack = new animatedSprite("assets/player/attack1.png", 120, 80, 8, true);
 		attack->setPos(x, y-40);
 		animations.push_back(attack);
 	}
 	else {					// LEFT
 		collision_box = { x-80, y-40, 120, 80 };
 		// create a visual sprite to represent the attack
-		animatedSprite * attack = new animatedSprite("assets/attack1.png", 120, 80, 8, true);
+		animatedSprite * attack = new animatedSprite("assets/player/attack1.png", 120, 80, 8, true);
 		attack->setPos(x-80, y-40);
 		animations.push_back(attack);
 	}
@@ -228,7 +228,7 @@ void player::attack2(const std::vector<enemy*>& enemies, const std::vector<bigEn
 		// as the collision hitbox
 		SDL_Rect collision_box = { x - 120, y - 60, 280, 160 };
 		// create a visual sprite to represent the attack
-		animatedSprite * attack = new animatedSprite("assets/attack2.png", 280, 160, 8, true);
+		animatedSprite * attack = new animatedSprite("assets/player/attack2.png", 280, 160, 8, true);
 		attack->setPos(x - 120, y - 60);
 		animations.push_back(attack);
 

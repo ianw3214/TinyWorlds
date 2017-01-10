@@ -1,19 +1,19 @@
-#include "level1.hh"
+#include "level2.hh"
 
-void level1::init() {
+void level2::init() {
 
 	// Add the sky to always get rendered first
-	background = new stillSprite("assets/level1/background1_sky.png");
+	background = new stillSprite("assets/level2/background2_sky.png");
 	sprites.push_back(background);
 
 	// initialize sprites for background parallaxing
-	bg = new stillSprite("assets/level1/background1_back.png");
+	bg = new stillSprite("assets/level2/background2_back.png");
 	sprites.push_back(bg);
-	mg = new stillSprite("assets/level1/background1_mid.png");
+	mg = new stillSprite("assets/level2/background2_mid.png");
 	sprites.push_back(mg);
 
 	// don't push foreground into sprites vector so we can control it's rendering to be last
-	fg = new stillSprite("assets/level1/background1_front.png");
+	fg = new stillSprite("assets/level2/background2_front.png");
 	topLevel.push_back(fg);
 
 	// call superclass constructor
@@ -36,12 +36,12 @@ void level1::init() {
 
 }
 
-void level1::close() {
+void level2::close() {
 	playState::close();
 }
 
 // OVERRIDE the playstate event handler to take on player attacks
-void level1::handleEvents(bool& running) {
+void level2::handleEvents(bool& running) {
 
 	SDL_Event e;
 
@@ -57,25 +57,25 @@ void level1::handleEvents(bool& running) {
 			if (e.key.keysym.sym == SDLK_q && !GAME_OVER) {
 				mainPlayer->attack(enemies, bigEnemies);
 			}
-			if (e.key.keysym.sym == SDLK_w && !GAME_OVER){
+			if (e.key.keysym.sym == SDLK_w && !GAME_OVER) {
 				mainPlayer->attack2(enemies, bigEnemies);
 			}
 			if (e.key.keysym.sym == SDLK_SPACE && GAME_OVER) {
 				// move on to the death menu
 				changeState = true;
-				
+
 			}
 		}
 		// run an event handler on objects affected by player input
-		if(!GAME_OVER) mainPlayer->eventHandler(e);
+		if (!GAME_OVER) mainPlayer->eventHandler(e);
 	}
 }
 
-void level1::update() {
+void level2::update() {
 
 	// update everything only if the game is still running
 	if (!GAME_OVER) {
-		
+
 		// update the timer to keep see if the player has won
 		winTimer += delta;
 		if (winTimer >= 2.0) {
@@ -88,8 +88,8 @@ void level1::update() {
 		if (curr_x < MARGIN) {
 			mainPlayer->setPos(MARGIN, curr_y);
 		}
-		if (curr_x > LEVEL_WIDTH - MARGIN) {
-			mainPlayer->setPos(LEVEL_WIDTH - MARGIN, curr_y);
+		if (curr_x > LEVEL_WIDTH_2 - MARGIN) {
+			mainPlayer->setPos(LEVEL_WIDTH_2 - MARGIN, curr_y);
 		}
 		// spawn enemies
 		handleEnemySpawn(delta);
@@ -149,7 +149,7 @@ void level1::update() {
 
 }
 
-void level1::render(SDL_Surface* display) {
+void level2::render(SDL_Surface* display) {
 	playState::render(display);
 	for (unsigned int i = 0; i < enemies.size(); i++) {
 		enemies.at(i)->render(display, camera);
@@ -160,7 +160,7 @@ void level1::render(SDL_Surface* display) {
 	// render hearts to represent player health
 	for (unsigned int i = 0; i < mainPlayer->getHealth(); i++) {
 		stillSprite * temp = new stillSprite("assets/heart.png");
-		temp->setPos( 20 + i * 40, 20 );
+		temp->setPos(20 + i * 40, 20);
 		temp->render(display, camera);
 	}
 	// render the top level content
@@ -169,12 +169,12 @@ void level1::render(SDL_Surface* display) {
 	}
 }
 
-void level1::handleEnemySpawn(float delta){
+void level2::handleEnemySpawn(float delta) {
 
 	// update the spawn timer
 	enemySpawnCounter += delta;
-	
-	if (enemySpawnCounter >= SPAWN_TIME) {
+
+	if (enemySpawnCounter >= SPAWN_TIME_2) {
 		// spawn a new enemy if the timer is reached
 		enemy * test = new enemy();
 		// make sure the enemy isn't spawned too close to the player
@@ -194,7 +194,7 @@ void level1::handleEnemySpawn(float delta){
 }
 
 // function that handles dealing with game over
-void level1::game_over(int key) {
+void level2::game_over(int key) {
 	// Takes different keys to represent different game over states
 	// 0 -> GAME LOST BY PLAYER DEATH
 	// 1 -> GAME LOST BY ENEMY BLOOM
@@ -230,17 +230,9 @@ void level1::game_over(int key) {
 	}
 	else if (key == 2) {
 
-		std::cout << "FLAG" << std::endl;
-
 		// The player won the game
 		mainPlayer->stopMovement();
 		GAME_OVER = true;
-
-		// move to a cutscene and then level 2
-		level2 * next = new level2();
-		cutScene * scene = new cutScene("assets/cutscenes/cutscene1.png", next);
-		nextState = scene;
-		changeState = true;
 
 		// update the screen
 		std::cout << "WIN CONDITION";

@@ -14,7 +14,7 @@ void playState::init() {
 	nextState = nullptr;
 
 	// initialize camera
-	this->camera = {0, 0, 800, 600};
+	this->camera = {0, 0, 1280, 720};
 
 	// Add the player
 	mainPlayer = new player();
@@ -92,7 +92,7 @@ void playState::render(SDL_Surface * display) {
 void playState::updateCamera() {
 
 	// update the camera based on player position
-	camera.x = mainPlayer->getX() - 380;
+	camera.x = mainPlayer->getX() - 620;
 
 	// check if the camera goes out of bounds
 	if (camera.x < 0) {
