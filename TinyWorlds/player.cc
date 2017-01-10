@@ -3,7 +3,7 @@
 player::player() : sprite("assets/player/player.png") {
 
 	// INITIALIZE VARIABLES
-	this->animationSequences = { 3, 3, 3, 3, 5, 5, 3 };
+	this->animationSequences = { 8, 8, 6, 3, 5, 5, 3 };
 	this->currentState = IDLE_RIGHT;
 	this->c_frame = 0;
 	this->c_time = 0.0;
@@ -11,8 +11,11 @@ player::player() : sprite("assets/player/player.png") {
 	this->DIRECTION = 1;
 	this->attacking = false;
 	this->attack2_CD = 0.0;
+	this->invincible = false;
+	this->invincible_CD = 0.0;
 
 	this->health = STARTING_HEALTH;
+	std::cout << "FLAG" << std::endl;
 
 }
 
@@ -37,7 +40,7 @@ void player::update(float delta) {
 
 	c_time += delta;
 	// update at a rate of 30 fps
-	if (c_time > 0.033	) {
+	if (c_time > 0.050	) {
 		// update the current sprite frame
 		c_frame++;
 		if (c_frame >= animationKey) {
@@ -80,6 +83,17 @@ void player::update(float delta) {
 		if (attack2_CD < 0.0) {
 			attack2_CD = 0.0;
 		}
+	}
+
+	// update invincible cooldown times
+	if (invincible_CD != 0.0) {
+		invincible_CD -= delta;
+		if (invincible_CD < 0.0) {
+			invincible_CD = 0.0;
+		}
+	}
+	else {
+		invincible = false;
 	}
 
 }
@@ -179,14 +193,14 @@ void player::attack(const std::vector<enemy*>& enemies, const std::vector<bigEne
 	if (DIRECTION == 1) {	// RIGHT
 		collision_box = { x, y-40, 240, 160 };
 		// create a visual sprite to represent the attack
-		animatedSprite * attack = new animatedSprite("assets/player/attack1.png", 120, 80, 8, true);
+		animatedSprite * attack = new animatedSprite("assets/player/attack1.png", 240, 160, 8, true);
 		attack->setPos(x, y-40);
 		animations.push_back(attack);
 	}
 	else {					// LEFT
 		collision_box = { x-80, y-40, 240, 160 };
 		// create a visual sprite to represent the attack
-		animatedSprite * attack = new animatedSprite("assets/player/attack1.png", 120, 80, 8, true);
+		animatedSprite * attack = new animatedSprite("assets/player/attack1.png", 240, 160, 8, true);
 		attack->setPos(x-80, y-40);
 		animations.push_back(attack);
 	}
@@ -228,7 +242,7 @@ void player::attack2(const std::vector<enemy*>& enemies, const std::vector<bigEn
 		// as the collision hitbox
 		SDL_Rect collision_box = { x - 120, y - 60, 560, 320 };
 		// create a visual sprite to represent the attack
-		animatedSprite * attack = new animatedSprite("assets/player/attack2.png", 280, 160, 8, true);
+		animatedSprite * attack = new animatedSprite("assets/player/attack2.png", 560, 320, 8, true);
 		attack->setPos(x - 120, y - 60);
 		animations.push_back(attack);
 
@@ -262,13 +276,23 @@ bool player::takeDamage(int damage) {
 	// returns TRUE if the player is still alive, returns false if the player
 	// is dead
 	
-	this->health -= damage;
-	
-	if (this->health > 0) {
+	// make sure to only take damage if the player isn't invincible
+	if (!invincible) {
+		// if the player takes damage, set up a damage cooldown
+		this->health -= damage;
+		this->invincible = true;
+		this->invincible_CD = 3.0;
+
+		if (this->health > 0) {
+			return true;
+		}
+
+		return false;
+
+	}
+	else {
 		return true;
 	}
-
-	return false;
 
 }
 

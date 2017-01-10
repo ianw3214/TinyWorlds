@@ -23,7 +23,7 @@ enum animationState {
 
 constexpr int HORIZONTAL_SPEED = 300;
 constexpr int VERTICAL_SPEED = 200;
-constexpr int STARTING_HEALTH = 1;
+constexpr int STARTING_HEALTH = 10;
 
 class player : public sprite {
 
@@ -58,6 +58,8 @@ private:
 	float attack2_CD;
 
 	int health;
+	bool invincible;
+	float invincible_CD;
 
 	std::vector<sprite*> animations;
 

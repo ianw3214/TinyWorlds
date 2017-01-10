@@ -78,7 +78,7 @@ void level1::update() {
 		
 		// update the timer to keep see if the player has won
 		winTimer += delta;
-		if (winTimer >= 2.0) {
+		if (winTimer >= 20.0) {
 			game_over(2);
 		}
 
@@ -229,8 +229,6 @@ void level1::game_over(int key) {
 
 	}
 	else if (key == 2) {
-
-		std::cout << "FLAG" << std::endl;
 
 		// The player won the game
 		mainPlayer->stopMovement();
