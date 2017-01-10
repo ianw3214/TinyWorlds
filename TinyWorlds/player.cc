@@ -7,7 +7,7 @@ player::player() : sprite("assets/player/player.png") {
 	this->currentState = IDLE_RIGHT;
 	this->c_frame = 0;
 	this->c_time = 0.0;
-	this->t_width = 40, this->t_height = 40;
+	this->t_width = 80, this->t_height = 80;
 	this->DIRECTION = 1;
 	this->attacking = false;
 	this->attack2_CD = 0.0;
@@ -72,7 +72,7 @@ void player::update(float delta) {
 	}
 
 	// update player collision rectangle
-	this->collisionRect = {x, y, 40, 40};
+	this->collisionRect = {x, y, 80, 80};
 
 	// update player cooldown times
 	if (attack2_CD != 0.0) {
@@ -177,14 +177,14 @@ void player::attack(const std::vector<enemy*>& enemies, const std::vector<bigEne
 	// as the collision hitbox
 	SDL_Rect collision_box = {};
 	if (DIRECTION == 1) {	// RIGHT
-		collision_box = { x, y-40, 120, 80 };
+		collision_box = { x, y-40, 240, 160 };
 		// create a visual sprite to represent the attack
 		animatedSprite * attack = new animatedSprite("assets/player/attack1.png", 120, 80, 8, true);
 		attack->setPos(x, y-40);
 		animations.push_back(attack);
 	}
 	else {					// LEFT
-		collision_box = { x-80, y-40, 120, 80 };
+		collision_box = { x-80, y-40, 240, 160 };
 		// create a visual sprite to represent the attack
 		animatedSprite * attack = new animatedSprite("assets/player/attack1.png", 120, 80, 8, true);
 		attack->setPos(x-80, y-40);
@@ -226,7 +226,7 @@ void player::attack2(const std::vector<enemy*>& enemies, const std::vector<bigEn
 
 		// first make a rectangle based on the players direction that will act
 		// as the collision hitbox
-		SDL_Rect collision_box = { x - 120, y - 60, 280, 160 };
+		SDL_Rect collision_box = { x - 120, y - 60, 560, 320 };
 		// create a visual sprite to represent the attack
 		animatedSprite * attack = new animatedSprite("assets/player/attack2.png", 280, 160, 8, true);
 		attack->setPos(x - 120, y - 60);
