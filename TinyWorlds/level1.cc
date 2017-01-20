@@ -2,6 +2,18 @@
 
 void level1::init() {
 
+	// close the music
+	Mix_FadeOutMusic(10);
+	Mix_FreeChunk(wave);
+	// play the music
+	Mix_Chunk * wav = Mix_LoadWAV("music/track2.wav");
+	if (wav == nullptr) {
+		std::cout << "Music was not able to be played, Error: " << Mix_GetError() << std::endl;
+	}
+	if (Mix_PlayChannel(2, wav, -1) == -1) {
+		std::cout << "Music was not able to be played, Error: " << Mix_GetError() << std::endl;
+	}
+
 	// Add the sky to always get rendered first
 	background = new stillSprite("assets/level1/background1_sky.png");
 	sprites.push_back(background);
@@ -26,9 +38,16 @@ void level1::init() {
 
 	// Spawn in the big enemies
 	for (int i = 0; i < 5; i++) {
-		bigEnemy* temp = new bigEnemy();
+		bigEnemy* temp = new bigEnemy("assets/enemy2.png");
 		temp->setPos(rand() % 1800 + 100, 400 + rand() % 80 - 40);
 		bigEnemies.push_back(temp);
+	}
+
+	// spawn some small enemies
+	for (int i = 0; i < 10; i++) {
+		enemy* temp = new enemy("assets/enemy.png");
+		temp->setPos(rand() % 1800 + 100, 400 + rand() % 80 - 40);
+		enemies.push_back(temp);
 	}
 
 	// set initial player position
@@ -78,15 +97,15 @@ void level1::update() {
 		
 		// update the timer to keep see if the player has won
 		winTimer += delta;
-		if (winTimer >= 20.0) {
+		if (winTimer >= 70.0) {
 			game_over(2);
 		}
 
 		playState::update();
 		// make sure the player doesn't go out of bounds horizontally
 		int curr_x = mainPlayer->getX(), curr_y = mainPlayer->getY();
-		if (curr_x < MARGIN) {
-			mainPlayer->setPos(MARGIN, curr_y);
+		if (curr_x < MARGIN - 40) {
+			mainPlayer->setPos(MARGIN - 40, curr_y);
 		}
 		if (curr_x > LEVEL_WIDTH - MARGIN) {
 			mainPlayer->setPos(LEVEL_WIDTH - MARGIN, curr_y);
@@ -120,11 +139,11 @@ void level1::update() {
 			// check if the enemy should be upgraded
 			else if (bigEnemies.at(i)->getUpgrade()) {
 				// add an upgrade sprite
-				animatedSprite * temp_FX = new animatedSprite("assets/enemy2_upgrade.png", 60, 60, 8, true);
+				animatedSprite * temp_FX = new animatedSprite("assets/enemy2_upgrade.png", 120, 120, 8, true);
 				temp_FX->setPos(bigEnemies.at(i)->getX(), bigEnemies.at(i)->getY());
 				sprites.push_back(temp_FX);
 				// make the upgrade
-				bigEnemyFinal *temp = new bigEnemyFinal(bigEnemies.at(i)->getHealth(), bigEnemies.at(i)->getX() - 10, bigEnemies.at(i)->getY() - 10);
+				bigEnemyFinal *temp = new bigEnemyFinal(bigEnemies.at(i)->getHealth(), bigEnemies.at(i)->getX() - 10, bigEnemies.at(i)->getY() - 10, "assets/enemy2_final.png");
 				bigEnemies.erase(bigEnemies.begin() + i);
 				bigEnemies.push_back(temp);
 			}
@@ -163,6 +182,7 @@ void level1::render(SDL_Surface* display) {
 		temp->setPos( 20 + i * 40, 20 );
 		temp->render(display, camera);
 	}
+	mainPlayer->render(display, camera);
 	// render the top level content
 	for (unsigned int i = 0; i < topLevel.size(); i++) {
 		topLevel.at(i)->render(display, camera);
@@ -176,7 +196,7 @@ void level1::handleEnemySpawn(float delta){
 	
 	if (enemySpawnCounter >= SPAWN_TIME) {
 		// spawn a new enemy if the timer is reached
-		enemy * test = new enemy();
+		enemy * test = new enemy("assets/enemy.png");
 		// make sure the enemy isn't spawned too close to the player
 		int init_x = rand() % 1800 + 100;
 		int init_y = rand() % 250 + 300;
@@ -221,7 +241,7 @@ void level1::game_over(int key) {
 		GAME_OVER = true;
 
 		// Update the screen
-		stillSprite * temp = new stillSprite("assets/text1.png");
+		stillSprite * temp = new stillSprite("assets/text2.png");
 		topLevel.push_back(temp);
 
 		// update the next game state to game over
@@ -236,7 +256,8 @@ void level1::game_over(int key) {
 
 		// move to a cutscene and then level 2
 		level2 * next = new level2();
-		cutScene * scene = new cutScene("assets/cutscenes/cutscene1.png", next);
+		cutScene * scene2 = new cutScene("assets/cutscenes/cutscene3.png", next);
+		cutScene * scene = new cutScene("assets/cutscenes/cutscene1.png", scene2);
 		nextState = scene;
 		changeState = true;
 

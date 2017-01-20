@@ -1,7 +1,7 @@
 #include "gameState.hh"
 
 // EMPTY DEFAULT CONSTRUCTOR
-gameState::gameState() {
+gameState::gameState(bool mute) {
 
 }
 

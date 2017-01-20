@@ -9,6 +9,7 @@
 #include "enemy.hh"
 #include "bigEnemy.hh"
 #include "animatedSprite.hh"
+#include "boss.hh"
 
 enum animationState {
 	IDLE_RIGHT = 0,
@@ -41,8 +42,12 @@ public:
 
 	void attack(const std::vector<enemy*>&, const std::vector<bigEnemy*>&);
 	void attack2(const std::vector<enemy*>&, const std::vector<bigEnemy*>&);
+	void attack1(boss*);
+	void attack2(boss*);
 	bool takeDamage(int);
 	void die();
+
+	void playSound();
 
 private:
 
@@ -55,6 +60,7 @@ private:
 	bool LEFT, RIGHT, UP, DOWN;
 	int DIRECTION;		// DIRECTION: direction the player is facing (0-left, 1-right)
 	bool attacking;
+	float attack1_CD;
 	float attack2_CD;
 
 	int health;

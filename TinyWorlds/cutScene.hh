@@ -14,7 +14,7 @@ class cutScene : public gameState {
 
 public:
 
-	cutScene(std::string, gameState*);
+	cutScene(std::string, gameState*, bool mute = false, Mix_Chunk * wav = nullptr);
 
 	virtual void init();
 	virtual void close();
@@ -30,5 +30,8 @@ protected:
 
 	Uint32 cTime, lTime;
 	float delta;
+
+	bool mute;
+	Mix_Chunk *wave;
 
 };

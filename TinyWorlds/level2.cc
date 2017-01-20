@@ -25,10 +25,16 @@ void level2::init() {
 	this->winTimer = 0.0;
 
 	// Spawn in the big enemies
-	for (int i = 0; i < 5; i++) {
-		bigEnemy* temp = new bigEnemy();
+	for (int i = 0; i < 6; i++) {
+		bigEnemy* temp = new bigEnemy("assets/enemy2_2.png");
 		temp->setPos(rand() % 1800 + 100, 400 + rand() % 80 - 40);
 		bigEnemies.push_back(temp);
+	}
+	// spawn some small enemies
+	for (int i = 0; i < 7; i++) {
+		enemy* temp = new enemy("assets/enemy_2.png");
+		temp->setPos(rand() % 1800 + 100, 400 + rand() % 80 - 40);
+		enemies.push_back(temp);
 	}
 
 	// set initial player position
@@ -38,6 +44,9 @@ void level2::init() {
 
 void level2::close() {
 	playState::close();
+	// close the music
+	Mix_FadeOutMusic(10);
+	Mix_FreeChunk(wave);
 }
 
 // OVERRIDE the playstate event handler to take on player attacks
@@ -78,7 +87,7 @@ void level2::update() {
 
 		// update the timer to keep see if the player has won
 		winTimer += delta;
-		if (winTimer >= 2.0) {
+		if (winTimer >= 70.0) {
 			game_over(2);
 		}
 
@@ -124,7 +133,7 @@ void level2::update() {
 				temp_FX->setPos(bigEnemies.at(i)->getX(), bigEnemies.at(i)->getY());
 				sprites.push_back(temp_FX);
 				// make the upgrade
-				bigEnemyFinal *temp = new bigEnemyFinal(bigEnemies.at(i)->getHealth(), bigEnemies.at(i)->getX() - 10, bigEnemies.at(i)->getY() - 10);
+				bigEnemyFinal *temp = new bigEnemyFinal(bigEnemies.at(i)->getHealth(), bigEnemies.at(i)->getX() - 10, bigEnemies.at(i)->getY() - 10, "assets/enemy2_final_2.png");
 				bigEnemies.erase(bigEnemies.begin() + i);
 				bigEnemies.push_back(temp);
 			}
@@ -163,6 +172,7 @@ void level2::render(SDL_Surface* display) {
 		temp->setPos(20 + i * 40, 20);
 		temp->render(display, camera);
 	}
+	mainPlayer->render(display, camera);
 	// render the top level content
 	for (unsigned int i = 0; i < topLevel.size(); i++) {
 		topLevel.at(i)->render(display, camera);
@@ -176,7 +186,7 @@ void level2::handleEnemySpawn(float delta) {
 
 	if (enemySpawnCounter >= SPAWN_TIME_2) {
 		// spawn a new enemy if the timer is reached
-		enemy * test = new enemy();
+		enemy * test = new enemy("assets/enemy_2.png");
 		// make sure the enemy isn't spawned too close to the player
 		int init_x = rand() % 1800 + 100;
 		int init_y = rand() % 250 + 300;
@@ -221,7 +231,7 @@ void level2::game_over(int key) {
 		GAME_OVER = true;
 
 		// Update the screen
-		stillSprite * temp = new stillSprite("assets/text1.png");
+		stillSprite * temp = new stillSprite("assets/text2.png");
 		topLevel.push_back(temp);
 
 		// update the next game state to game over
@@ -234,8 +244,11 @@ void level2::game_over(int key) {
 		mainPlayer->stopMovement();
 		GAME_OVER = true;
 
-		// update the screen
-		std::cout << "WIN CONDITION";
+		// move to a cutscene and then final level
+		last * next = new last();
+		cutScene * scene = new cutScene("assets/cutscenes/cutscene2.png", next);
+		nextState = scene;
+		changeState = true;
 
 	}
 

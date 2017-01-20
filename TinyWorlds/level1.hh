@@ -17,7 +17,7 @@
 #include "cutScene.hh"
 
 constexpr int LEVEL_WIDTH = 2000;
-constexpr float SPAWN_TIME = 1.0;
+constexpr float SPAWN_TIME = 0.5;
 
 class level1 : public playState {
 

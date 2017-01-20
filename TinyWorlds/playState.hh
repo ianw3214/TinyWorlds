@@ -15,13 +15,13 @@
 constexpr int GROUND_LEVEL = 350;
 constexpr int WINDOW_WIDTH = 1280;
 constexpr int WINDOW_HEIGHT = 720;
-constexpr int MARGIN = 50;
+constexpr int MARGIN = 80;
 
 class playState : public gameState{
 
 public:
 
-	playState();
+	playState(bool mute = false, Mix_Chunk * wav = nullptr);
 
 	virtual void init();
 	virtual void close();
@@ -42,5 +42,8 @@ protected:
 
 	std::vector<sprite*> sprites;
 	player * mainPlayer;
+
+	bool mute;
+	Mix_Chunk *wave;
 
 };

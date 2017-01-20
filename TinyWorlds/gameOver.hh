@@ -10,11 +10,12 @@
 #include "gameState.hh"
 #include "sprite.hh"
 #include "animatedSprite.hh"
+#include "mainMenu.hh"
 
 class gameOver : public gameState {
 
 public:
-	gameOver();
+	gameOver(bool mute = false, Mix_Chunk * wav = nullptr);
 
 	virtual void init();
 	virtual void close();
@@ -29,5 +30,8 @@ protected:
 
 	Uint32 cTime, lTime;
 	float delta;
+
+	bool mute;
+	Mix_Chunk *wave;
 
 };

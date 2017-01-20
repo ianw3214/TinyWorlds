@@ -1,18 +1,18 @@
 #include "bigEnemy.hh"
 
-bigEnemy::bigEnemy() : sprite("assets/enemy2.png") {
+bigEnemy::bigEnemy(std::string path) : sprite(path) {
 
 	// INITIALIZE VARIABLES
 	this->animationSequences = { 4, 4, 4, 4, 4, 4 };
 	this->currentState = STATE1;
 	this->c_frame = 0;
 	this->c_time = 0.0;
-	this->t_width = 60, this->t_height = 60;
+	this->t_width = 120, this->t_height = 120;
 	this->upgradeTime = 0.0;
 	this->moveTime = 0;
 	this->cDirection = rand() % 7;
 
-	this->health = 5;
+	this->health = 7;
 	this->upgrade = false;
 	this->bloom = false;
 
@@ -85,10 +85,10 @@ void bigEnemy::update(float delta) {
 	}
 
 	// update Big Enemy collision rect
-	setCollisionRect(60, 60);
+	setCollisionRect(120, 120);
 
 	// update big enemy state
-	if (upgradeTime >= 1.0) {
+	if (upgradeTime >= 7.0) {
 		if (currentState == STATE1) {
 			currentState = STATE2;
 		}

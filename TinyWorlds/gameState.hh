@@ -6,7 +6,7 @@ class gameState {
 
 public:
 
-	gameState();
+	gameState(bool mute = false);
 
 	virtual void init() = 0;
 	virtual void close() = 0;
@@ -24,5 +24,7 @@ protected:
 	// variables that handle changing game states
 	gameState * nextState;
 	bool changeState;
+
+	bool mute;
 
 };

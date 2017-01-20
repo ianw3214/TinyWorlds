@@ -85,7 +85,7 @@
     <Link>
       <AdditionalLibraryDirectories>C:\Users\ianw3214\Desktop\TinyWorlds\win_libs\SDL2-2.0.4\lib\x86;C:\Users\ianw3214\Desktop\TinyWorlds\win_libs\SDL2_mixer-2.0.1\lib\x86;C:\Users\ianw3214\Desktop\TinyWorlds\win_libs\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -108,7 +108,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\Users\ianw3214\Desktop\TinyWorlds\win_libs\SDL2-2.0.4\lib\x86;C:\Users\ianw3214\Desktop\TinyWorlds\win_libs\SDL2_mixer-2.0.1\lib\x86;C:\Users\ianw3214\Desktop\TinyWorlds\win_libs\SDL2_image-2.0.1\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -128,11 +128,14 @@
     <ClCompile Include="animatedSprite.cc" />
     <ClCompile Include="bigEnemy.cc" />
     <ClCompile Include="bigEnemyFinal.cc" />
+    <ClCompile Include="boss.cc" />
+    <ClCompile Include="bullet.cc" />
     <ClCompile Include="cutScene.cc" />
     <ClCompile Include="enemy.cc" />
     <ClCompile Include="engine.cc" />
     <ClCompile Include="gameOver.cc" />
     <ClCompile Include="gameState.cc" />
+    <ClCompile Include="last.cc" />
     <ClCompile Include="level1.cc" />
     <ClCompile Include="level2.cc" />
     <ClCompile Include="main.cc" />
@@ -146,11 +149,14 @@
     <ClInclude Include="animatedSprite.hh" />
     <ClInclude Include="bigEnemy.hh" />
     <ClInclude Include="bigEnemyFinal.hh" />
+    <ClInclude Include="boss.hh" />
+    <ClInclude Include="bullet.hh" />
     <ClInclude Include="cutScene.hh" />
     <ClInclude Include="enemy.hh" />
     <ClInclude Include="engine.hh" />
     <ClInclude Include="gameOver.hh" />
     <ClInclude Include="gameState.hh" />
+    <ClInclude Include="last.hh" />
     <ClInclude Include="level1.hh" />
     <ClInclude Include="level2.hh" />
     <ClInclude Include="mainMenu.hh" />

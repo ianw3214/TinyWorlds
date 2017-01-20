@@ -37,6 +37,19 @@ void mainMenu::init() {
 	item2->nextItem = item3;
 	item3->nextItem = nullptr;
 
+	// audio intialization
+	wave = Mix_LoadWAV("music/track1.wav");
+	if (wave == nullptr) {
+		std::cout << "Music was not able to be played, Error: " << Mix_GetError() << std::endl;
+	}
+	if (Mix_PlayChannel(2, wave, -1) == -1) {
+		std::cout << "Music was not able to be played, Error: " << Mix_GetError() << std::endl;
+	}
+	else {
+		Mix_Volume(2, 64);
+	}
+	mute = false;
+
 }
 
 void mainMenu::close() {
@@ -50,6 +63,7 @@ void mainMenu::handleEvents(bool& running) {
 	// get the SDL events
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_KEYDOWN) {
+			playSound();
 			switch (e.key.keysym.sym) {
 			case SDLK_ESCAPE: {
 				running = false;
@@ -105,16 +119,43 @@ void mainMenu::select() {
 
 	switch(selected->key){
 	case 0: {	// PLAY GAME
-		nextState = new level1();
+		level1 * play  = new level1();
+		cutScene * CS_1 = new cutScene("assets/cutscenes/cs_1.png", play, mute, wave);
+		cutScene * instructions = new cutScene("assets/cutscenes/instructions.png", CS_1, mute, wave);
+		nextState = instructions;
 		changeState = true;
+
 	} break;
 	case 1: {	// OPTIONS
-		std::cout << "TEST" << std::endl;
+		if (mute) {
+			mute = false;
+			Mix_Volume(2, 64);
+		}
+		else {
+			mute = true;
+			Mix_Volume(2, 0);
+		}
 	} break;
 	case 2: {	// QUIT
 		changeState = true;
 		nextState = nullptr;
 	} break;
 	}
+
+}
+
+void mainMenu::playSound() {
+
+	// SDL_Mixer variable to hold the music file
+	Mix_Chunk *tempWave = Mix_LoadWAV("music/menu.wav");
+	// check to see if the music successfully loaded
+	if (tempWave == nullptr) {
+		std::cout << "Music was not able to be played, Error: " << Mix_GetError() << std::endl;
+		return;
+	}
+	if (Mix_PlayChannel(1, tempWave, 0) == -1) {
+		std::cout << "Music was not able to be played, Error: " << Mix_GetError() << std::endl;
+	}
+	return;
 
 }

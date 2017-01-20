@@ -1,8 +1,13 @@
 #include "playState.hh"
 
 // DEFAULT CONSTRUCTOR
-playState::playState() {
-
+playState::playState(bool mute, Mix_Chunk * wav) {
+	if (mute) {
+		this->mute = mute;
+	}
+	if (wav) {
+		this->wave = wav;
+	}
 }
 
 void playState::init() {

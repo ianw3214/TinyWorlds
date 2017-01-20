@@ -6,7 +6,10 @@ engine::engine() {
 }
 
 void engine::setState(gameState * state) {
-
+	
+	if (currentState != nullptr) {
+		currentState->close();
+	}
 	this->currentState = state;
 	currentState->init();
 
@@ -29,6 +32,7 @@ void engine::update() {
 		}
 		// otherwise, change to the new current state
 		else {
+			currentState->close();
 			this->currentState = nextState;
 			currentState->init();
 		}

@@ -24,7 +24,7 @@ class bigEnemy : public sprite {
 
 public:
 
-	bigEnemy();
+	bigEnemy(std::string);
 
 	virtual void update(float);
 	virtual void render(SDL_Surface*, SDL_Rect);
@@ -50,6 +50,8 @@ protected:
 	float upgradeTime;
 	int cDirection;	// 0-LEFT 1-ULEFT 2-UP 3-URIGHT 4-RIGHT 5-DRIGHT 6-DOWN 7-DLEFT
 	float moveTime;
+
+	std::string next_path;
 
 	int health;
 	bool dead, upgrade, bloom;

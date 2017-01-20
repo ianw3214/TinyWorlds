@@ -23,7 +23,7 @@ class enemy : public sprite {
 
 public:
 
-	enemy();
+	enemy(std::string);
 
 	void update(float, int, int);
 	void render(SDL_Surface*, SDL_Rect);

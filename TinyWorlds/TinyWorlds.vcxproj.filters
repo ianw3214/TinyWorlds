@@ -66,6 +66,15 @@
     <ClCompile Include="level2.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="last.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="boss.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine.hh">
@@ -111,6 +120,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="level2.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="last.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="boss.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

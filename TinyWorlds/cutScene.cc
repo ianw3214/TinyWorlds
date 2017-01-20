@@ -1,7 +1,13 @@
 #include "cutScene.hh"
 
-cutScene::cutScene(std::string path, gameState * nextState) {
+cutScene::cutScene(std::string path, gameState * nextState, bool mute, Mix_Chunk * wav) {
 
+	if (mute) {
+		this->mute = mute;
+	}
+	if (wav) {
+		this->wave = wav;
+	}
 	background = new sprite(path);
 	text = new sprite("assets/cutscenes/text.png");
 
@@ -32,6 +38,16 @@ void cutScene::handleEvents(bool& running) {
 			}
 			if (e.key.keysym.sym == SDLK_SPACE) {
 				changeState = true;
+				// SDL_Mixer variable to hold the music file
+				Mix_Chunk *tempWave = Mix_LoadWAV("music/cutscene.wav");
+				// check to see if the music successfully loaded
+				if (tempWave == nullptr) {
+					std::cout << "Music was not able to be played, Error: " << Mix_GetError() << std::endl;
+					return;
+				}
+				if (Mix_PlayChannel(1, tempWave, 0) == -1) {
+					std::cout << "Music was not able to be played, Error: " << Mix_GetError() << std::endl;
+				}
 			}
 		}
 	}

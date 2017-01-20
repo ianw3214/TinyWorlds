@@ -1,8 +1,13 @@
 #include "gameOver.hh"
 
 // empty default constructor
-gameOver::gameOver() {
-	
+gameOver::gameOver(bool mute, Mix_Chunk * wav) {
+	if (mute) {
+		this->mute = mute;
+	}
+	if (wav) {
+		this->wave = wav;
+	}
 }
 
 // initialization function
@@ -20,7 +25,9 @@ void gameOver::init() {
 }
 
 void gameOver::close() {
-
+	// close the music
+	Mix_FadeOutMusic(10);
+	Mix_FreeChunk(wave);
 }
 
 void gameOver::handleEvents(bool& running) {
@@ -35,6 +42,10 @@ void gameOver::handleEvents(bool& running) {
 		else if (e.type == SDL_KEYDOWN) {
 			if (e.key.keysym.sym == SDLK_ESCAPE) {
 				running = false;
+			}
+			if (e.key.keysym.sym == SDLK_SPACE) {
+				nextState = new mainMenu();
+				changeState = true;
 			}
 		}
 	}

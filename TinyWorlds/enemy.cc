@@ -1,6 +1,6 @@
 #include "enemy.hh"
 
-enemy::enemy() : sprite("assets/enemy.png") {
+enemy::enemy(std::string path) : sprite(path) {
 
 	// INITIALIZE VARIABLES
 	this->animationSequences = { 3, 3, 3, 3 };

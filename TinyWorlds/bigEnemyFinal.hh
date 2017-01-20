@@ -14,7 +14,7 @@ enum bigEnemyFinalAnimationState {
 class bigEnemyFinal : public bigEnemy {
 
 public:
-	bigEnemyFinal(int, int, int);
+	bigEnemyFinal(int, int, int, std::string);
 
 	void update(float);
 	void kill();

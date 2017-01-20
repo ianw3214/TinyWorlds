@@ -13,9 +13,10 @@
 #include "bigEnemyFinal.hh"
 #include "stillSprite.hh"
 #include "gameOver.hh"
+#include "last.hh"
 
 constexpr int LEVEL_WIDTH_2 = 2000;
-constexpr float SPAWN_TIME_2 = 1.0;
+constexpr float SPAWN_TIME_2 = 0.4;
 
 class level2 : public playState {
 

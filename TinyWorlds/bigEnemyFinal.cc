@@ -1,29 +1,22 @@
 #include "bigEnemyFinal.hh"
 
 // default constructor
-bigEnemyFinal::bigEnemyFinal(int lastHealth, int inp_x, int inp_y) : bigEnemy() {
+bigEnemyFinal::bigEnemyFinal(int lastHealth, int inp_x, int inp_y, std::string path) : bigEnemy(path) {
 
 	// INITIALIZE VARIABLES
 	animationSequences = { 4, 4, 4 };
 	this->currentState = FINAL_STATE1;
 	this->c_frame = 0;
 	this->c_time = 0.0;
-	this->t_width = 80, this->t_height = 80;
+	this->t_width = 160, this->t_height = 160;
 	this->upgradeTime = 0.0;
 	this->moveTime = 0;
 	this->cDirection = rand() % 7;
 
-	this->health = lastHealth;		// five the enemy extra health when it upgrades
+	this->health = lastHealth + 5;		// five the enemy extra health when it upgrades
 	this->setPos(inp_x, inp_y);
 	this->upgrade = false;
 	this->bloomCounter = 0;
-
-	// reset the image source
-	std::string path = "assets/enemy2_final.png";
-	img = IMG_Load(path.c_str());
-	if (!img) {
-		std::cout << "Failed to load image: " << path << ", SDL_image ERROR : " << IMG_GetError() << std::endl;
-	}
 
 }
 
@@ -72,10 +65,10 @@ void bigEnemyFinal::update(float delta) {
 			} break;
 			}
 			// MOVE THE ENEMY AND CHECK IF IT IS OUT OF BOUNDS
-			if (UP) { y -= BIG_ENEMY_VERTICAL_SPEED * delta; }
-			if (DOWN) { y += BIG_ENEMY_VERTICAL_SPEED * delta; }
-			if (LEFT) { x -= BIG_ENEMY_HORIZONTAL_SPEED * delta; }
-			if (RIGHT) { x += BIG_ENEMY_HORIZONTAL_SPEED * delta; }
+			if (UP) { y -= static_cast<int>(BIG_ENEMY_VERTICAL_SPEED * delta); }
+			if (DOWN) { y += static_cast<int>(BIG_ENEMY_VERTICAL_SPEED * delta); }
+			if (LEFT) { x -= static_cast<int>(BIG_ENEMY_HORIZONTAL_SPEED * delta); }
+			if (RIGHT) { x += static_cast<int>(BIG_ENEMY_HORIZONTAL_SPEED * delta); }
 			if (x < 70) { x = 70; }
 			if (x > 1930) { x = 1930; }
 			if (y < 280) { y = 280; }
@@ -89,10 +82,10 @@ void bigEnemyFinal::update(float delta) {
 	}
 
 	// update Big Enemy collision rect
-	setCollisionRect(60, 60);
+	setCollisionRect(160, 160);
 
 	// update big enemy state
-	if (upgradeTime >= 5.0) {
+	if (upgradeTime >= 12.0) {
 		if (currentState = FINAL_STATE1) {
 			currentState = FINAL_STATE2;
 		}

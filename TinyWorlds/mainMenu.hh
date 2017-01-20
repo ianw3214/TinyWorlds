@@ -31,11 +31,17 @@ public:
 	void update();
 	void render(SDL_Surface*);
 
+	void playSound();
+
 private:
 
 	menuItem * selected, * first;
 	sprite * background;
 
+	bool mute = false;
+
 	void select();
+
+	Mix_Chunk *wave;
 
 };
